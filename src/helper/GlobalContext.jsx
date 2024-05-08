@@ -35,6 +35,8 @@ function GlobalProvider({ children }) {
     console.log(show,"token")
   } catch (error) {}
 };
+
+
   async function getSuperUser(){
   try {
     console.log("hi")
@@ -78,6 +80,8 @@ async function addSuperUser(formData){
     checkToken()
     getSuperUser()
   },[])
+  
+
   
 
   //global context stuck

@@ -16,7 +16,7 @@ const initialValues = {
 };
 
 export default function AddAdmin() {
-  const { addSuperUser } = useContext(globalContext);
+  const { addSuperUser ,setShowModal} = useContext(globalContext);
   
   const objectSchema = Yup.object({
     admin_email: Yup.string()
@@ -40,6 +40,7 @@ export default function AddAdmin() {
   function handleAddSubmit(values){
     console.log("Form submitted with values:", values);
      addSuperUser(values)
+     setShowModal(false)
      
   }
 
