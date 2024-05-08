@@ -35,7 +35,7 @@ export default function Login() {
     if (show) {
       navigate("/");
     }
-  },[show,navigate]);
+  },[]);
 
   const objectSchema = Yup.object({
     admin_email: Yup.string()
@@ -53,8 +53,10 @@ export default function Login() {
   
 
   return (
+    
+
     <Formik initialValues={initialValues} validationSchema={objectSchema} onSubmit={handleSubmit} >
-      <Form  className="max-w-sm mx-auto">
+      <Form  className="max-w-sm mx-auto ">
         <LabelAndFiled name="email" lbl_txt="Your email" />
         <LabelAndFiled name="password" lbl_txt="Your password" />
         <div className="mb-5">
@@ -74,5 +76,6 @@ export default function Login() {
         </button>
       </Form>
     </Formik>
+    
   );
 }
