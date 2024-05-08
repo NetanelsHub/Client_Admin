@@ -9,6 +9,7 @@ function GlobalProvider({ children }) {
   // this show/hide component (form/nav etc)
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [userData, setUserData] = useState("");
 
 
   
@@ -34,6 +35,17 @@ function GlobalProvider({ children }) {
     console.log(show,"token")
   } catch (error) {}
 };
+  async function getSuperUser(){
+  try {
+    console.log("hi")
+    const { data } = await axios.get(`${url}/getSuperUser`, {
+      withCredentials: true,
+    });
+    setUserData(data.allUser)
+    console.log(data)
+    if(!data) throw new Error("There is not Admin/Manager")
+  } catch (error) {}
+};
 
 async function addSuperUser(formData){
   try {
@@ -41,7 +53,8 @@ async function addSuperUser(formData){
       withCredentials: true,
     });
 
-    console.log(data)
+    // console.log(data)
+    return data
   } catch (error) {
     
   }
@@ -63,6 +76,7 @@ async function addSuperUser(formData){
 
   useEffect(()=>{
     checkToken()
+    getSuperUser()
   },[])
   
 
@@ -73,7 +87,8 @@ async function addSuperUser(formData){
     loginAdmin,
     showModal,
     setShowModal,
-    addSuperUser
+    addSuperUser,
+    userData
 
   };
 
