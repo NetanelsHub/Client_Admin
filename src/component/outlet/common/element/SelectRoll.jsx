@@ -17,6 +17,7 @@ export default function SelectRoll({ name }) {
         required
       >
          {/* <option value="Editor Manager">Select Roll</option> */}
+        <option value="Select Role">Select Role</option>
         <option value="Editor Manager">Editor Manager</option>
         <option value="Admin">Admin</option>
       </Field>
