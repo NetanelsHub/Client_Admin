@@ -9,7 +9,7 @@ const url = "http://localhost:3000/user";
 
 
 export default function Management() {
-  const {showModal,setShowModal ,userData} = useContext(globalContext)
+  const {showModal,setShowModal ,userData ,setSendReq} = useContext(globalContext)
   const [superUser,setSuperUser] = useState(null)
 // console.log(superUser)
   // console.log(userData)
@@ -26,7 +26,7 @@ export default function Management() {
   async function deleteSuperUser(id) {
     try {
     const { data } = await axios.delete(`${url}/deleteSuperUser/${id}`);
-   
+    setSendReq(prev => !prev);
     } catch (error) {
       console.log(error);
     }
