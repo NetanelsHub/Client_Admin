@@ -1,4 +1,4 @@
-import { createContext, useState,useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { date } from "yup";
 
@@ -12,30 +12,31 @@ function GlobalProvider({ children }) {
   const [sendReq, setSendReq] = useState(false);
   const [userData, setUserData] = useState("");
 
+  // State to store the message
+  const [message, setMessage] = useState("");
 
-  
-  async function loginAdmin(formData){
-  try {
-    const { data } = await axios.post(`${url}/login`, formData, {
-      withCredentials: true,
-    });
-    if(!data.success) throw new Error("don't success to login");
-  } catch (error) {}
-};
+  async function loginAdmin(formData) {
+    try {
+      const { data } = await axios.post(`${url}/login`, formData, {
+        withCredentials: true,
+      });
+      if (!data.success) throw new Error("don't success to login");
+    } catch (error) {}
+  }
 
-  async function checkToken(){
-  try {
-    console.log("hi")
-    const { data } = await axios.get(`${url}/auth`, {
-      withCredentials: true,
-    });
-    console.log(data)
-    if(!data) throw new Error("There is token");
-    console.log("after the if")
-    setShow(true)
-    console.log(show,"token")
-  } catch (error) {}
-};
+  async function checkToken() {
+    try {
+      console.log("hi");
+      const { data } = await axios.get(`${url}/auth`, {
+        withCredentials: true,
+      });
+      console.log(data);
+      if (!data) throw new Error("There is token");
+      console.log("after the if");
+      setShow(true);
+      console.log(show, "token");
+    } catch (error) {}
+  }
 
 
   async function getSuperUser(){
@@ -55,8 +56,6 @@ async function addSuperUser(formData){
     const { data } = await axios.post(`${url}/addSuperUser`, formData, {
       withCredentials: true,
     });
-    setSendReq(prev => !prev);
-
 
     // console.log(data)
     return data
@@ -65,24 +64,24 @@ async function addSuperUser(formData){
   }
 }
 
-//   async function logOut(){
-//   try {
-//     console.log("by")
-//     const { data } = await axios.get(`${url}/auth`, {
-//       withCredentials: true,
-//     });
-//     console.log(data)
-//     if(!data) throw new Error("There is token");
-//     console.log("after the if")
-//     setShow(true)
-//     console.log(show,"token")
-//   } catch (error) {}
-// };
+  //   async function logOut(){
+  //   try {
+  //     console.log("by")
+  //     const { data } = await axios.get(`${url}/auth`, {
+  //       withCredentials: true,
+  //     });
+  //     console.log(data)
+  //     if(!data) throw new Error("There is token");
+  //     console.log("after the if")
+  //     setShow(true)
+  //     console.log(show,"token")
+  //   } catch (error) {}
+  // };
 
   useEffect(()=>{
     checkToken()
     getSuperUser()
-  },[sendReq])
+  },[])
   
 
   
@@ -95,8 +94,7 @@ async function addSuperUser(formData){
     showModal,
     setShowModal,
     addSuperUser,
-    userData,
-    setSendReq
+    userData
 
   };
 
