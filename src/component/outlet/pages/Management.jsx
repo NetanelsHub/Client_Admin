@@ -8,22 +8,22 @@ import Message from "../../static/element/Message"
 
 
 export default function Management() {
-  const {showModal,setShowModal ,userData ,deleteSuperUser,message} = useContext(globalContext)
-  const [superUser,setSuperUser] = useState(null)
-// console.log(superUser)
+  const { showModal, setShowModal, userData, deleteSuperUser, message } = useContext(globalContext)
+  const [superUser, setSuperUser] = useState(null)
+  // console.log(superUser)
   // console.log(userData)
 
   function handleAddAdmin() {
     setShowModal(true);
   }
-//try 2
+  //try 2
   function handleCloseModal() {
     setShowModal(false);
   }
- function  handleDelete(id){
-  deleteSuperUser(id)
+  function handleDelete(id) {
+    deleteSuperUser(id)
 
- }
+  }
 
 
   async function editSuperUser(superUser) {
@@ -45,7 +45,7 @@ export default function Management() {
                 Close
               </button>
               {/* onClose={handleCloseModal}  */}
-              <AddAdmin  />
+              <AddAdmin />
             </div>
           </div>
         )}
@@ -57,7 +57,9 @@ export default function Management() {
           >
             Add new Admin or manger
           </button>
-         {message &&  <Message text = {message} />}
+          {/* {console.log(message)} */}
+          <div> {message && <Message text={message} />}</div>
+
         </div>
       </div>
 
@@ -104,7 +106,7 @@ export default function Management() {
                   <td className="px-6 py-4">{superUser.admin_email}</td>
                   <td className="px-6 py-4">{superUser.admin_role}</td>
                   <td className="px-6 py-4">
-                    <button onClick={()=>handleDelete(superUser._id)}>
+                    <button onClick={() => handleDelete(superUser._id)}>
                       <MdDelete className="text-red-600" size={25} />
                     </button>
                     <button onClick={() => editSuperUser(superUser)}>
