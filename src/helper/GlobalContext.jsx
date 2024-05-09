@@ -89,6 +89,7 @@ function GlobalProvider({ children }) {
     addSuperUser,
     userData,
     message,
+    setMessage,
     deleteSuperUser
 
   };
