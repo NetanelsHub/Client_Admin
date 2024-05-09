@@ -4,7 +4,7 @@ import { date } from "yup";
 
 const url = "http://localhost:3000/user";
 export const globalContext = createContext();
-
+// aaa
 function GlobalProvider({ children }) {
   // this show/hide component (form/nav etc)
   const [show, setShow] = useState(false);
