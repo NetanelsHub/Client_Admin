@@ -1,4 +1,4 @@
-import { createContext, useState,useEffect } from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { date } from "yup";
 
@@ -11,78 +11,77 @@ function GlobalProvider({ children }) {
   const [showModal, setShowModal] = useState(false);
   const [userData, setUserData] = useState("");
 
+  // State to store the message
+  const [message, setMessage] = useState("");
 
-  
-  async function loginAdmin(formData){
-  try {
-    const { data } = await axios.post(`${url}/login`, formData, {
-      withCredentials: true,
-    });
-    if(!data.success) throw new Error("don't success to login");
-  } catch (error) {}
-};
-
-  async function checkToken(){
-  try {
-    console.log("hi")
-    const { data } = await axios.get(`${url}/auth`, {
-      withCredentials: true,
-    });
-    console.log(data)
-    if(!data) throw new Error("There is token");
-    console.log("after the if")
-    setShow(true)
-    console.log(show,"token")
-  } catch (error) {}
-};
-
-
-  async function getSuperUser(){
-  try {
-    console.log("hi")
-    const { data } = await axios.get(`${url}/getSuperUser`, {
-      withCredentials: true,
-    });
-    setUserData(data.allUser)
-    console.log(data)
-    if(!data) throw new Error("There is not Admin/Manager")
-  } catch (error) {}
-};
-
-async function addSuperUser(formData){
-  try {
-    const { data } = await axios.post(`${url}/addSuperUser`, formData, {
-      withCredentials: true,
-    });
-
-    // console.log(data)
-    return data
-  } catch (error) {
-    
+  async function loginAdmin(formData) {
+    try {
+      const { data } = await axios.post(`${url}/login`, formData, {
+        withCredentials: true,
+      });
+      if (!data.success) throw new Error("don't success to login");
+    } catch (error) {}
   }
-}
 
-//   async function logOut(){
-//   try {
-//     console.log("by")
-//     const { data } = await axios.get(`${url}/auth`, {
-//       withCredentials: true,
-//     });
-//     console.log(data)
-//     if(!data) throw new Error("There is token");
-//     console.log("after the if")
-//     setShow(true)
-//     console.log(show,"token")
-//   } catch (error) {}
-// };
+  async function checkToken() {
+    try {
+      console.log("hi");
+      const { data } = await axios.get(`${url}/auth`, {
+        withCredentials: true,
+      });
+      console.log(data);
+      if (!data) throw new Error("There is token");
+      console.log("after the if");
+      setShow(true);
+      console.log(show, "token");
+    } catch (error) {}
+  }
 
-  useEffect(()=>{
-    checkToken()
-    getSuperUser()
-  },[])
-  
+  async function getSuperUser() {
+    try {
+      console.log("hi");
+      const { data } = await axios.get(`${url}/getSuperUser`, {
+        withCredentials: true,
+      });
+      setUserData(data.allUser);
+      console.log(data.message);
+      if (!data) throw new Error("There is not Admin/Manager");
+      
+    } catch (error) {}
+     
+  }
 
-  
+  async function addSuperUser(formData) {
+    try {
+      const { data } = await axios.post(`${url}/addSuperUser`, formData, {
+        withCredentials: true,
+      });
+      setMessage(data.message); // Set the message from the response
+      // console.log(data)
+      return data;
+    } catch (error) {
+      setMessage("Failed to add Admin/Manager !");
+    }
+  }
+
+  //   async function logOut(){
+  //   try {
+  //     console.log("by")
+  //     const { data } = await axios.get(`${url}/auth`, {
+  //       withCredentials: true,
+  //     });
+  //     console.log(data)
+  //     if(!data) throw new Error("There is token");
+  //     console.log("after the if")
+  //     setShow(true)
+  //     console.log(show,"token")
+  //   } catch (error) {}
+  // };
+
+  useEffect(() => {
+    checkToken();
+    getSuperUser();
+  }, []);
 
   //global context stuck
   const value = {
@@ -92,8 +91,8 @@ async function addSuperUser(formData){
     showModal,
     setShowModal,
     addSuperUser,
-    userData
-
+    userData,
+    message
   };
 
   return (
