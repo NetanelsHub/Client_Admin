@@ -8,10 +8,10 @@ import Message from "../../static/element/Message"
 const url = "http://localhost:3000/user";
 
 export default function Management() {
-  const { showModal, setShowModal, userData,message } = useContext(globalContext);
-  const [superUser, setSuperUser] = useState(null);
-  // console.log(superUser)
-  console.log(userData);
+  const {showModal,setShowModal ,userData ,setSendReq} = useContext(globalContext)
+  const [superUser,setSuperUser] = useState(null)
+// console.log(superUser)
+  // console.log(userData)
 
   function handleAddAdmin() {
     setShowModal(true);
@@ -23,7 +23,8 @@ export default function Management() {
 
   async function deleteSuperUser(id) {
     try {
-      const { data } = await axios.delete(`${url}/deleteSuperUser/${id}`);
+    const { data } = await axios.delete(`${url}/deleteSuperUser/${id}`);
+    setSendReq(prev => !prev);
     } catch (error) {
       console.log(error);
     }

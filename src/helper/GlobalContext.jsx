@@ -4,11 +4,12 @@ import { date } from "yup";
 
 const url = "http://localhost:3000/user";
 export const globalContext = createContext();
-
+// aaa
 function GlobalProvider({ children }) {
   // this show/hide component (form/nav etc)
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [sendReq, setSendReq] = useState(false);
   const [userData, setUserData] = useState("");
 
   // State to store the message
@@ -37,32 +38,31 @@ function GlobalProvider({ children }) {
     } catch (error) {}
   }
 
-  async function getSuperUser() {
-    try {
-      console.log("hi");
-      const { data } = await axios.get(`${url}/getSuperUser`, {
-        withCredentials: true,
-      });
-      setUserData(data.allUser);
-      console.log(data.message);
-      if (!data) throw new Error("There is not Admin/Manager");
-      
-    } catch (error) {}
-     
-  }
 
-  async function addSuperUser(formData) {
-    try {
-      const { data } = await axios.post(`${url}/addSuperUser`, formData, {
-        withCredentials: true,
-      });
-      setMessage(data.message); // Set the message from the response
-      // console.log(data)
-      return data;
-    } catch (error) {
-      setMessage("Failed to add Admin/Manager !");
-    }
+  async function getSuperUser(){
+  try {
+    console.log("hi")
+    const { data } = await axios.get(`${url}/getSuperUser`, {
+      withCredentials: true,
+    });
+    setUserData(data.allUser)
+    console.log(data)
+    if(!data) throw new Error("There is not Admin/Manager")
+  } catch (error) {}
+};
+
+async function addSuperUser(formData){
+  try {
+    const { data } = await axios.post(`${url}/addSuperUser`, formData, {
+      withCredentials: true,
+    });
+
+    // console.log(data)
+    return data
+  } catch (error) {
+    
   }
+}
 
   //   async function logOut(){
   //   try {
@@ -78,10 +78,13 @@ function GlobalProvider({ children }) {
   //   } catch (error) {}
   // };
 
-  useEffect(() => {
-    checkToken();
-    getSuperUser();
-  }, []);
+  useEffect(()=>{
+    checkToken()
+    getSuperUser()
+  },[])
+  
+
+  
 
   //global context stuck
   const value = {
@@ -91,8 +94,8 @@ function GlobalProvider({ children }) {
     showModal,
     setShowModal,
     addSuperUser,
-    userData,
-    message
+    userData
+
   };
 
   return (
