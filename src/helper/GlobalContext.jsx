@@ -9,7 +9,9 @@ function GlobalProvider({ children }) {
   // this show/hide component (form/nav etc)
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  // this controlling the req to the server
   const [sendReq, setSendReq] = useState(false);
+  // this get all user form the server
   const [userData, setUserData] = useState("");
 
   // State to store the message
@@ -38,53 +40,44 @@ function GlobalProvider({ children }) {
     } catch (error) {}
   }
 
-
-  async function getSuperUser(){
-  try {
-    console.log("hi")
-    const { data } = await axios.get(`${url}/getSuperUser`, {
-      withCredentials: true,
-    });
-    setUserData(data.allUser)
-    console.log(data)
-    if(!data) throw new Error("There is not Admin/Manager")
-  } catch (error) {}
-};
-
-async function addSuperUser(formData){
-  try {
-    const { data } = await axios.post(`${url}/addSuperUser`, formData, {
-      withCredentials: true,
-    });
-
-    // console.log(data)
-    return data
-  } catch (error) {
-    
+  async function getSuperUser() {
+    try {
+      console.log("hi");
+      const { data } = await axios.get(`${url}/getSuperUser`, {
+        withCredentials: true,
+      });
+      setUserData(data.allUser);
+      console.log(data);
+      if (!data) throw new Error("There is not Admin/Manager");
+    } catch (error) {}
   }
-}
 
-  //   async function logOut(){
-  //   try {
-  //     console.log("by")
-  //     const { data } = await axios.get(`${url}/auth`, {
-  //       withCredentials: true,
-  //     });
-  //     console.log(data)
-  //     if(!data) throw new Error("There is token");
-  //     console.log("after the if")
-  //     setShow(true)
-  //     console.log(show,"token")
-  //   } catch (error) {}
-  // };
+  async function addSuperUser(formData) {
+    try {
+      const { data } = await axios.post(`${url}/addSuperUser`, formData, {
+        withCredentials: true,
+      });
+      setSendReq((prev) => !prev);
+      setMessage(data.message);
+      // console.log(data)
+      return data;
+    } catch (error) {}
+  }
 
-  useEffect(()=>{
-    checkToken()
-    getSuperUser()
-  },[])
-  
+  async function deleteSuperUser(id) {
+    try {
+      const { data } = await axios.delete(`${url}/deleteSuperUser/${id}`);
+      setSendReq((prev) => !prev);
+      setMessage(data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  
+  useEffect(() => {
+    checkToken();
+    getSuperUser();
+  }, [sendReq]);
 
   //global context stuck
   const value = {
@@ -94,7 +87,9 @@ async function addSuperUser(formData){
     showModal,
     setShowModal,
     addSuperUser,
-    userData
+    userData,
+    message,
+    deleteSuperUser
 
   };
 
