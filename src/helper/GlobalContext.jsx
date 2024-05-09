@@ -4,11 +4,12 @@ import { date } from "yup";
 
 const url = "http://localhost:3000/user";
 export const globalContext = createContext();
-
+// aaa
 function GlobalProvider({ children }) {
   // this show/hide component (form/nav etc)
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [sendReq, setSendReq] = useState(false);
   const [userData, setUserData] = useState("");
 
 
@@ -54,6 +55,8 @@ async function addSuperUser(formData){
     const { data } = await axios.post(`${url}/addSuperUser`, formData, {
       withCredentials: true,
     });
+    setSendReq(prev => !prev);
+
 
     // console.log(data)
     return data
@@ -79,7 +82,7 @@ async function addSuperUser(formData){
   useEffect(()=>{
     checkToken()
     getSuperUser()
-  },[])
+  },[sendReq])
   
 
   
@@ -92,7 +95,8 @@ async function addSuperUser(formData){
     showModal,
     setShowModal,
     addSuperUser,
-    userData
+    userData,
+    setSendReq
 
   };
 
