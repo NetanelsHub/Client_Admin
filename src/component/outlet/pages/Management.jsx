@@ -16,7 +16,7 @@ export default function Management() {
   function handleAddAdmin() {
     setShowModal(true);
   }
-
+//try
   function handleCloseModal() {
     setShowModal(false);
   }
