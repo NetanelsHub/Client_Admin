@@ -5,10 +5,10 @@ import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
 import Message from "../../static/element/Message"
-const url = "http://localhost:3000/user";
+
 
 export default function Management() {
-  const {showModal,setShowModal ,userData ,setSendReq} = useContext(globalContext)
+  const {showModal,setShowModal ,userData ,deleteSuperUser,message} = useContext(globalContext)
   const [superUser,setSuperUser] = useState(null)
 // console.log(superUser)
   // console.log(userData)
@@ -20,15 +20,11 @@ export default function Management() {
   function handleCloseModal() {
     setShowModal(false);
   }
+ function  handleDelete(id){
+  deleteSuperUser(id)
 
-  async function deleteSuperUser(id) {
-    try {
-    const { data } = await axios.delete(`${url}/deleteSuperUser/${id}`);
-    setSendReq(prev => !prev);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+ }
+
 
   async function editSuperUser(superUser) {
     setSuperUser(superUser);
@@ -97,17 +93,18 @@ export default function Management() {
                       : "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
                   }
                 >
-                  <th
+                  {/* <td
                     scope="row"
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     {superUser.admin_fName}
-                  </th>
+                  </td> */}
+                  <td className="px-6 py-4">{superUser.admin_fName}</td>
                   <td className="px-6 py-4">{superUser.admin_lName}</td>
                   <td className="px-6 py-4">{superUser.admin_email}</td>
                   <td className="px-6 py-4">{superUser.admin_role}</td>
                   <td className="px-6 py-4">
-                    <button onClick={() => deleteSuperUser(superUser._id)}>
+                    <button onClick={()=>handleDelete(superUser._id)}>
                       <MdDelete className="text-red-600" size={25} />
                     </button>
                     <button onClick={() => editSuperUser(superUser)}>
