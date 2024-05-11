@@ -1,7 +1,7 @@
 import React from "react";
 import {Formik, Field, ErrorMessage } from "formik";
 
-export default function LabelAndFiled({name, lbl_txt}) {
+export default function LabelAndFiled({name, lbl_txt,}) {
   return (
     <div className="mb-5">
       <label
