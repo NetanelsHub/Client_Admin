@@ -8,28 +8,62 @@ import Message from "../../static/element/Message"
 
 
 export default function Management() {
-  const { showModal, setShowModal, userData, deleteSuperUser, message } = useContext(globalContext)
+  const { showModal, setShowModal, userData, deleteSuperUser, message,upDateSuperUser,setOptionSelection,setUpdateUser, setAddSubmit } = useContext(globalContext)
   const [superUser, setSuperUser] = useState(null)
   // console.log(superUser)
   // console.log(userData)
 
   function handleAddAdmin() {
+    console.log("in handleAddAdmin")
     setShowModal(true);
+     //set OptionSelection to true
+     setOptionSelection(false)
+     
   }
-  //try 2
+ 
   function handleCloseModal() {
     setShowModal(false);
+
+    //set the Selection option
+    setOptionSelection(false)
+
+    // reset all the value inside the form
+    setUpdateUser("")
+
   }
+
   function handleDelete(id) {
     deleteSuperUser(id)
 
   }
 
+  function handleUpdate(superUser){
+    console.log(superUser)
+     // insert only this to super user to the form
+     const { admin_fName, admin_lName, admin_role, admin_email,_id,admin_password} = superUser
+    //  console.log(admin_fName, admin_lName, admin_role, admin_email)
+  
+     //open the model
+     setShowModal(true);
+ 
+     //set all info for the form 
+     setUpdateUser({ admin_fName, admin_lName, admin_role, admin_email,_id,admin_password })
+ 
+     //set OptionSelection to true
+     setOptionSelection(true)
 
-  async function editSuperUser(superUser) {
-    setSuperUser(superUser);
-    setShowModal(true);
+     // set AddSubmit so the submit button will do the update
+     setAddSubmit(false)
+
+    
+
+     
   }
+
+  // async function editSuperUser(superUser) {
+  //   setSuperUser(superUser);
+  //   setShowModal(true);
+  // }
 
   return (
     <div>
@@ -109,7 +143,7 @@ export default function Management() {
                     <button onClick={() => handleDelete(superUser._id)}>
                       <MdDelete className="text-red-600" size={25} />
                     </button>
-                    <button onClick={() => editSuperUser(superUser)}>
+                    <button onClick={() => handleUpdate(superUser)}>
                       <FaEdit className="text-blue-500" size={25} />
                     </button>
                   </td>

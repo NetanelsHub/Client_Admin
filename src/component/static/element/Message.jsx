@@ -4,6 +4,8 @@ import { globalContext}  from "../../../helper/GlobalContext";
 export default function Message({ text }) {
   const [isVisible, setIsVisible] = useState(true);
   const {setMessage} = useContext(globalContext)
+
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(false);
