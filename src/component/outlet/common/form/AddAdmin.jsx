@@ -58,27 +58,13 @@ export default function AddAdmin() {
 
   // if  OptionSelection = true , this function will trigger  else  handleAddSubmit will trigger
   function handleUpdateSubmit(values,id) {
-   
+   // the id only  to check if i get the id og specifics td of thi user
     console.log("in handleUpdateSubmit and the id is :", id)
-    //set the Selection option its depend if we do the update on the same button
-    setOptionSelection(true)
-
-    //reset all the value inside the form
-    setUpdateUser("")
-
+    
     // call for req server
     upDateSuperUser(values)
-
-    // re the selection to false so if i go back to to add form i see all selection  and password 
-    setOptionSelection(false)
-
-    // clos the model
-    setShowModal(false)
-   
-
   }
   
-
   return (
                                                                             // if addSubmit is true the onSubmit button should be handleAddSubmit
     <Formik
