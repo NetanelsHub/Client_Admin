@@ -105,6 +105,8 @@ function GlobalProvider({ children }) {
           // Add any other headers you might need, like authorization token
         },
       });
+      
+      setSendReq((prev) => !prev);
       //there is problem with the massage i get from the server
       setMessage(response.data.message);
 
