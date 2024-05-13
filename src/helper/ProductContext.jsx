@@ -7,13 +7,17 @@ function ProductProvider({ children }) {
     const [showModal, setShowModal] = useState(false);
     // for the textArea to get it and reset it 
     const [text,setText] = useState("")
-   
+    //  to get the category input user select
+    const [selectedCategory, setSelectedCategory] = useState('');
+
     // Global context state
     const value = {
         showModal,
         setShowModal,
         text,
-        setText
+        setText,
+        selectedCategory,
+        setSelectedCategory
        
     };
 

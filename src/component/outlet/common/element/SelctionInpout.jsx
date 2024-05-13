@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
+import { productContext } from "../../../../helper/ProductContext";
 
 export default function CategoryInput({ options, lbl_txt }) {
-  const [selectedCategory, setSelectedCategory] = useState('');
+  
+  const { selectedCategory, setSelectedCategory } = useContext(productContext);
 
-  const handleCategoryChange = (event) => {
-    setSelectedCategory(event.target.value);
-  };
+  function handleCategoryChange(e) {
+    // const selectedOption = options.find(option => option.value === selectedValue);
+
+    // setSelectedCategory(e.target.options[e.target.selectedIndex ])
+    setSelectedCategory(e.target.value)
+    // console.log(selectedCategory)
+    
+   
+   
+  }
+
+  // useEffect(()=>{
+  //   // handleCategoryChange()
+   
+  // },[selectedCategory])
+  
 
   return (
     <div className="mb-5">
-      <label
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
-      >
+      <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">
         {lbl_txt}
       </label>
       <select
@@ -26,10 +39,10 @@ export default function CategoryInput({ options, lbl_txt }) {
           </option>
         ))}
       </select>
+      {/* <p>{selectedCategory}</p> */}
     </div>
   );
 }
-
 
 // how to send the option
 // const options = [
