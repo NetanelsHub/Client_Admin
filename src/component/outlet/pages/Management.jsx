@@ -8,8 +8,8 @@ import Message from "../../static/element/Message"
 
 
 export default function Management() {
-  const { showModal, setShowModal, userData, deleteSuperUser, message,upDateSuperUser,setOptionSelection,setUpdateUser, setAddSubmit } = useContext(globalContext)
-  const [superUser, setSuperUser] = useState(null)
+  const { showModal, setShowModal, userData, deleteSuperUser, message,setOptionSelection,setUpdateUser, setAddSubmit } = useContext(globalContext)
+  // const [superUser, setSuperUser] = useState(null)
   // console.log(superUser)
   // console.log(userData)
 
