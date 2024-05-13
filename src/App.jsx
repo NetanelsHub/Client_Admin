@@ -1,10 +1,11 @@
-import { lazy, Suspense,useContext } from "react";
+import { lazy, Suspense, useContext } from "react";
 import Nav from "./component/static/Nav";
 const Home = lazy(() => import("./component/outlet/pages/Home"));
 const Login = lazy(() => import("./component/outlet/common/form/Login"));
 const Management = lazy(() => import("./component/outlet/pages/Management"));
+const Product = lazy(() => import("./component/outlet/pages/Product"));
 
-// import Login from "./component/outlet/common/form/Login";
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,11 +14,12 @@ import {
   createRoutesFromElements,
   Navigate
 } from "react-router-dom";
-import {globalContext} from "./helper/GlobalContext"
+import { globalContext } from "./helper/GlobalContext"
+
 
 
 function Root() {
-   const {show} = useContext(globalContext)
+  const { show } = useContext(globalContext)
   return (
     <>
       {show && <Nav />}
@@ -29,26 +31,26 @@ function Root() {
 }
 
 function App() {
-  const {show} = useContext(globalContext)
+  const { show } = useContext(globalContext)
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
-       <Route
-       index
-       element={show ? <Navigate to={"/"} />: <Navigate to={"/login"}/>}
-       
-       />
+        <Route
+          index
+          element={show ? <Navigate to={"/"} /> : <Navigate to={"/login"} />}
+
+        />
         <Route path="home" element={<Home />} />
         <Route path="management" element={<Management />} />
-       <Route path="login" element={<Login />} />
+        <Route path="login" element={<Login />} />
+        <Route path="product" element={<Product />} />
       </Route>
     )
   );
 
   return (
     <>
-
       <RouterProvider router={router} />
     </>
   );
