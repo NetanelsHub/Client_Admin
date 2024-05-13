@@ -20,7 +20,7 @@ export default function AddProduct() {
     return (
         // need to be a add product button
         <>
-            <Button btn_txt="Add new product" click_function={handleAddProduct} />
+            <Button btn_txt="Add new product" lbl_type="button" click_function={handleAddProduct} />
             <Model close_function={handleCloseModal}>
                 {/* Add new product button inside the Model */}
                 <Form />
