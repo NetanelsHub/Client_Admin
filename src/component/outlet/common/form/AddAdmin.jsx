@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import LabelAndFiled from "../element/LabelAndFiled"
 import SelectRoll from "../element/SelectRoll";
 import { globalContext } from "../../../../helper/GlobalContext";
-
+import Button from "../element/Button";
 
 // const initialValues = {
 //   admin_email: "",
@@ -76,17 +76,19 @@ export default function AddAdmin() {
         <LabelAndFiled name="fName" lbl_txt=" Enter First Name"  />
         <LabelAndFiled name="lName" lbl_txt=" Enter Last Name"  />
         <LabelAndFiled name="email" lbl_txt=" Enter Email"  />
-        {/* //  if user on update form  this label  not need to show up */}
+        {/* //  if user on update form , this label not need to show up */}
         {!optionSelection && <LabelAndFiled name="password" lbl_txt=" Enter Password" />}
         <SelectRoll name="role" />
 
-        <button
-          type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Submit
-        </button>
+        <Button btn_txt={"Submit"} btn_type={"Submit"}/>
       </Form>
     </Formik>
   )
 }
+
+{/* <button
+          type="submit"
+          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Submit
+        </button> */}

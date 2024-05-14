@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import {productContext} from "../../../../helper/ProductContext"
 
 export default function LoadImage({ lbl_txt }) {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const {selectedFile, setSelectedFile}= useContext(productContext);
 
   const handleFileChange = (event) => {
     const file=(event.target.files[0]);
     setSelectedFile(file);
+    
   };
 
   return (
@@ -30,6 +32,7 @@ export default function LoadImage({ lbl_txt }) {
           type="text"
           className="flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg ml-3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           placeholder="No file chosen"
+          name= "product_image"
           value={selectedFile ? selectedFile.name : ''}
           readOnly // the input read-only so users can't edit the file path manually
         />

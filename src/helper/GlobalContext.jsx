@@ -1,8 +1,9 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
-import { date } from "yup";
+// import { date } from "yup";
 
 const url = "http://localhost:3000/user";
+
 export const globalContext = createContext();
 // aaa
 function GlobalProvider({ children }) {
