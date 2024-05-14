@@ -16,12 +16,6 @@ export default function CategoryInput({ options, lbl_txt }) {
    
   }
 
-  // useEffect(()=>{
-  //   // handleCategoryChange()
-   
-  // },[selectedCategory])
-  
-
   return (
     <div className="mb-5">
       <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">

@@ -9,6 +9,8 @@ function ProductProvider({ children }) {
     const [text,setText] = useState("")
     //  to get the category input user select
     const [selectedCategory, setSelectedCategory] = useState('');
+    //  to get the file in add product form
+    const [selectedFile, setSelectedFile] = useState("");
 
     // Global context state
     const value = {
@@ -17,7 +19,9 @@ function ProductProvider({ children }) {
         text,
         setText,
         selectedCategory,
-        setSelectedCategory
+        setSelectedCategory,
+        selectedFile,
+        setSelectedFile
        
     };
 
