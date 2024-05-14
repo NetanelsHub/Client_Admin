@@ -9,13 +9,13 @@ import {globalContext} from  "../../../../helper/GlobalContext"
 
 // set the option of category to selectionInput
 const options = [
-  { value: "body care", label: "body care" },
-  { value: "hair line", label: "hair line" },
-  { value: "gold performance", label: "gold performance" },
-  { value: "kits", label: "kits" },
-  { value: "makeup", label: "makeup" },
-  { value: "nail kit", label: "nail kit" },
-  { value: "premium", label: "premium" },
+  { value: "Body Care", label: "Body care" },
+  { value: "Hair Line", label: "Hair line" },
+  { value: "Gold Performance", label: "Gold performance" },
+  { value: "Kits", label: "Kits" },
+  { value: "Makeup", label: "Makeup" },
+  { value: "Nail Kit", label: "Nail kit" },
+  { value: "Premium", label: "Premium" },
 ];
 
 export default function Form() {
@@ -31,7 +31,7 @@ const {setMessage} = useContext(globalContext)
 
     // here need to add function axios
     addProduct(data)
-    
+
    // check what is in the FromDate
     // for (const [key, value] of date.entries()) {
     //   console.log(`${key}: ${value}`);
