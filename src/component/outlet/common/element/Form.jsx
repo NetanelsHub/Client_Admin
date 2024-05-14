@@ -19,18 +19,19 @@ const options = [
 ];
 
 export default function Form() {
-const {selectedCategory,setSelectedCategory,selectedFile,setShowModal,setSelectedFile} = useContext(productContext)
+const {selectedCategory,setSelectedCategory,selectedFile,setShowModal,setSelectedFile,addProduct} = useContext(productContext)
 const {setMessage} = useContext(globalContext)
 
   function handleSubmit(e) {
     e.preventDefault();
     console.log(selectedFile)
-    const date = new FormData(e.target);
-    date.append("product_category",selectedCategory)
-    date.append("product_image",selectedFile)
+    const data = new FormData(e.target);
+    data.append("product_category",selectedCategory)
+    data.append("product_image",selectedFile)
 
     // here need to add function axios
-
+    addProduct(data)
+    
    // check what is in the FromDate
     // for (const [key, value] of date.entries()) {
     //   console.log(`${key}: ${value}`);

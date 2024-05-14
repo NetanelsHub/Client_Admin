@@ -1,6 +1,9 @@
 import { createContext, useState } from "react";
+import axios from "axios";
 
 export const productContext = createContext();
+
+const url = "http://localhost:3000/products";
 
 function ProductProvider({ children }) {
     // for the model of from - add product
@@ -12,6 +15,25 @@ function ProductProvider({ children }) {
     //  to get the file in add product form
     const [selectedFile, setSelectedFile] = useState("");
 
+    async function addProduct(formData) {
+        try {
+            console.log("form info:",formData)
+          const { data } = await axios.post(`${url}/add`, formData, {
+            withCredentials: true,
+          });
+          
+      
+          setMessage(data.message);
+          // Uncomment and use if you need to trigger any state changes
+          // setSendReq((prev) => !prev);
+          return data;
+        } catch (error) {
+          console.error("An error occurred while adding the product:", error);
+          setMessage("An error occurred while adding the product.");
+        }
+      }
+      
+
     // Global context state
     const value = {
         showModal,
@@ -21,7 +43,8 @@ function ProductProvider({ children }) {
         selectedCategory,
         setSelectedCategory,
         selectedFile,
-        setSelectedFile
+        setSelectedFile,
+        addProduct
        
     };
 
