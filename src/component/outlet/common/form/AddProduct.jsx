@@ -31,6 +31,8 @@ export default function AddProduct() {
                 {/* Add new product button inside the Model */}
                 <Form />
             </Model>
+            
+
         </>
 
     )

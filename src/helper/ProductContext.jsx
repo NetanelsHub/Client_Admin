@@ -1,11 +1,14 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { globalContext } from "./GlobalContext";
 
 export const productContext = createContext();
 
 const url = "http://localhost:3000/products";
 
 function ProductProvider({ children }) {
+    const {setMessage} = useContext(globalContext)
+
     // for the model of from - add product
     const [showModal, setShowModal] = useState(false);
     // for the textArea to get it and reset it 
@@ -14,6 +17,9 @@ function ProductProvider({ children }) {
     const [selectedCategory, setSelectedCategory] = useState('');
     //  to get the file in add product form
     const [selectedFile, setSelectedFile] = useState("");
+    // info all data products
+    const [dataProduct,setDataProduct]= useState("")
+    const [crudProduct,setCrudProduct] =useState(false)
 
     async function addProduct(formData) {
         try {
@@ -32,7 +38,35 @@ function ProductProvider({ children }) {
           setMessage("An error occurred while adding the product.");
         }
       }
-      
+
+    async function getAllProduct(){
+      try {
+        console.log("hi product");
+        const { data } = await axios.get(`${url}/getAllProducts`, {
+          withCredentials: true,
+        });
+
+        setDataProduct(data.products);
+        setCrudProduct((prev) => !prev);
+        console.log(data);
+
+        if (!data) throw new Error("There is not Products");
+      } catch (error) { }
+    }  
+    async function deleteProduct(id){
+      try {
+        const { data } = await axios.delete(`${url}/delete/${id}`);
+        setCrudProduct((prev) => !prev);
+        setMessage(response.data.message);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    useEffect(()=>{
+      getAllProduct()
+      // deleteProduct()
+    },[crudProduct])
 
     // Global context state
     const value = {
@@ -44,9 +78,15 @@ function ProductProvider({ children }) {
         setSelectedCategory,
         selectedFile,
         setSelectedFile,
-        addProduct
+        addProduct,
+        dataProduct,
+        deleteProduct
+
+        
        
     };
+
+  
 
     return (
         <productContext.Provider value={value}>

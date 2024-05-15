@@ -46,9 +46,7 @@ const {setMessage} = useContext(globalContext)
     e.target.reset()
     //clos the form
     setShowModal(false)
-    //send message from the server
-    setMessage("add product")
-
+  
   }
 
   return (
