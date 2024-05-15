@@ -55,7 +55,7 @@ function GlobalProvider({ children }) {
 
   async function getSuperUser() {
     try {
-      console.log("hi");
+      // console.log("hi");
       const { data } = await axios.get(`${url}/getSuperUser`, {
         withCredentials: true,
       });
