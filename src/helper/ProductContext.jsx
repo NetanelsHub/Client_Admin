@@ -31,7 +31,8 @@ function ProductProvider({ children }) {
       
           setMessage(data.message);
           // Uncomment and use if you need to trigger any state changes
-          // setSendReq((prev) => !prev);
+          setCrudProduct((prev) => !prev);
+
           return data;
         } catch (error) {
           console.error("An error occurred while adding the product:", error);
@@ -45,9 +46,7 @@ function ProductProvider({ children }) {
         const { data } = await axios.get(`${url}/getAllProducts`, {
           withCredentials: true,
         });
-
         setDataProduct(data.products);
-        setCrudProduct((prev) => !prev);
         console.log(data);
 
         if (!data) throw new Error("There is not Products");
@@ -65,8 +64,9 @@ function ProductProvider({ children }) {
 
     useEffect(()=>{
       getAllProduct()
-      // deleteProduct()
+
     },[crudProduct])
+
 
     // Global context state
     const value = {
