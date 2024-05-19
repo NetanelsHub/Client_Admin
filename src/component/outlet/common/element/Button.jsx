@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { productContext } from '../../../../helper/ProductContext'
 
 export default function Button({ btn_txt,btn_type ,click_function }) {
+    const{ isAdd } = useState
     return (
         // this button go to the right side , for the left justify-start
         <div className="flex justify-end"> 

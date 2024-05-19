@@ -4,12 +4,30 @@ import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
 export default function TableProduct() {
-  const { dataProduct ,deleteProduct} = useContext(productContext);
+  const { dataProduct, deleteProduct, setProductForm,setShowModal,productFrom, setSelectedFile, isAdd , 
+    setIsAdd } = useContext(productContext);
 
   function handleDelete(id) {
     deleteProduct(id)
   }
- 
+
+  function handleUpdate(product) {
+    console.log("on update")
+    // set to false isAdd  because we in update
+    setIsAdd(false)
+    // to clean the input image 
+    // setSelectedFile("")
+    // open the model
+    setShowModal(true)
+    // set the  product from the table 
+    setProductForm(product)
+    // if user click on add product 1st and choice a file 
+    //  need to reset it so its not show on update 
+    setSelectedFile("")
+
+    // console.log(productFrom)
+
+  }
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -19,7 +37,7 @@ export default function TableProduct() {
               Name
             </th>
             <th scope="col" className="px-6 py-3">
-              Desorption
+            Description
             </th>
             <th scope="col" className="px-6 py-3">
               Price
@@ -72,13 +90,13 @@ export default function TableProduct() {
                 </td>
 
                 <td className="px-6 py-4">
-                <button onClick={() => handleDelete(product._id)}>
-                  <MdDelete className="text-red-600" size={25} />
-                </button>
-                {/* <button onClick={() => handleUpdate(superUser)}>
-                  <FaEdit className="text-blue-500" size={25} />
-                </button> */}
-              </td>
+                  <button onClick={() => handleDelete(product._id)}>
+                    <MdDelete className="text-red-600" size={25} />
+                  </button>
+                  <button onClick={() => handleUpdate(product)}>
+                    <FaEdit className="text-blue-500" size={25} />
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

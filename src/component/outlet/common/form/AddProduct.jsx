@@ -9,15 +9,28 @@ import Message from "../../../static/element/Message";
 import {globalContext} from "../../../../helper/GlobalContext"
 
 export default function AddProduct() {
-    const { setShowModal ,setSelectedCategory} = useContext(productContext)
+    const { setShowModal ,setSelectedCategory,setProductForm, setIsAdd ,setSelectedFile} = useContext(productContext)
     const {message,} = useContext(globalContext)
 
-    function handleAddProduct() {
+    function handleAddProduct(e) {
+        //reset the update info from the form 
+        setProductForm("")
+        // clear the file if he was in upDateProduct
+        setSelectedFile("");
+
+        console.log("button add Product")
+
+        //set isAdd to true because we in add 
+        setIsAdd(true)
+        
+        // show the model
         setShowModal(true)
+
     }
 
     function handleCloseModal() {
         // reset the user choice of  category 
+
         setSelectedCategory("")
         setShowModal(false)
     }
