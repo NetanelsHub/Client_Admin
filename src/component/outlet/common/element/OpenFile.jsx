@@ -1,14 +1,29 @@
 import React, { useContext, useState } from 'react';
-import {productContext} from "../../../../helper/ProductContext"
+import { productContext } from "../../../../helper/ProductContext"
 
-export default function LoadImage({ lbl_txt }) {
-  const {selectedFile, setSelectedFile}= useContext(productContext);
+export default function LoadImage({ lbl_txt,value }) {
+  const { selectedFile, setSelectedFile, productFrom, setProductForm, isAdd, setIsAdd } = useContext(productContext);
 
   const handleFileChange = (event) => {
-    const file=(event.target.files[0]);
+    // can add only 1 file
+    const file = (event.target.files[0]);
     setSelectedFile(file);
-    
+
+    console.log("isAdd:", isAdd)
+    //if user on update 
+    {
+      !isAdd && setProductForm(prevState => ({
+        ...prevState,
+        product_image: file,
+      }));
+    }
+
   };
+  // const handleChange = (e) => {
+  //   const file = e.target.files[0];
+  //   onChange('product_image', file);
+  // };
+
 
   return (
     <div className="mb-5">
@@ -24,6 +39,7 @@ export default function LoadImage({ lbl_txt }) {
           Choose Image
           <input
             type="file"
+            accept='image/*' // only image and not other file 
             className="hidden" // hide the file input visually
             onChange={handleFileChange}
           />
@@ -32,8 +48,15 @@ export default function LoadImage({ lbl_txt }) {
           type="text"
           className="flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg ml-3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           placeholder="No file chosen"
-          name= "product_image"
-          value={selectedFile ? selectedFile.name : ''}
+          name="product_image"
+          value={selectedFile ? selectedFile.name : value ? value :''}
+          // value=   { !productFrom ?  selectedFile  ? selectedFile.name : '' : value }
+          // value=   {  selectedFile  ? selectedFile.name : '' }
+          // value=   {  isAdd  ? selectedFile.name : productFrom ? value: "" }
+          // {...(value = isAdd ? selectedFile.name : { value })}
+          // i want if add == true value = selectedFile.name if isAdd false i ned to pot the valoue
+          // { ... value=isAdd ? selectedFile.name : value  }
+          //  value =  {value}
           readOnly // the input read-only so users can't edit the file path manually
         />
       </div>

@@ -19,7 +19,22 @@ function ProductProvider({ children }) {
     const [selectedFile, setSelectedFile] = useState("");
     // info all data products
     const [dataProduct,setDataProduct]= useState("")
+    // for prev and re prev
     const [crudProduct,setCrudProduct] =useState(false)
+    // to handel the update product from 
+    const [productFrom,setProductForm] = useState ({
+      product_name: '',
+      product_description: '',
+      product_price: '',
+      product_amount:"",
+      product_discount:"",
+      product_image: "",
+      product_category :""
+    })
+    // a flag to know if  user in product update etc or on add 
+    const[isAdd , setIsAdd] = useState(true)
+   
+    
 
     async function addProduct(formData) {
         try {
@@ -80,7 +95,12 @@ function ProductProvider({ children }) {
         setSelectedFile,
         addProduct,
         dataProduct,
-        deleteProduct
+        deleteProduct,
+        productFrom,
+        setProductForm,
+        isAdd , 
+        setIsAdd
+      
 
         
        

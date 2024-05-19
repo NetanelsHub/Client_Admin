@@ -2,18 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import { productContext } from "../../../../helper/ProductContext";
 
 export default function CategoryInput({ options, lbl_txt }) {
-  
-  const { selectedCategory, setSelectedCategory } = useContext(productContext);
+
+  const { selectedCategory, setSelectedCategory,productFrom , isAdd,setProductForm} = useContext(productContext);
 
   function handleCategoryChange(e) {
-    // const selectedOption = options.find(option => option.value === selectedValue);
-
-    // setSelectedCategory(e.target.options[e.target.selectedIndex ])
+    // for add product
+    const selection = e.target.value
     setSelectedCategory(e.target.value)
     // console.log(selectedCategory)
-    
    
-   
+    {
+      !isAdd && setProductForm(prevState => ({
+        ...prevState,
+        product_category: selection,
+      }));
+    }
+
   }
 
   return (
@@ -26,7 +30,9 @@ export default function CategoryInput({ options, lbl_txt }) {
         onChange={handleCategoryChange}
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 w-full focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       >
-        <option value="">Select a category</option>
+       {isAdd ? <option value="1">Select a category</option> :
+        <option value="1">{productFrom.product_category[0].category_name}</option> }
+
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

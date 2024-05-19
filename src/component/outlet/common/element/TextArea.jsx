@@ -1,13 +1,16 @@
 import {useContext} from "react";
 import { productContext} from "../../../../helper/ProductContext"
 
-export default function TextArea({ lbl_txt, placeholder ,name}) {
-    const{setText} = useContext(productContext)
+export default function TextArea({ lbl_txt, placeholder ,name,value,onChange = () => {} }) {
+    const{setText,productFrom,isAdd} = useContext(productContext)
 
-    const handleChange = (event) => {
-        setText(event.target.value);
+    const handleChange = (e) => {
+        setText(e.target.value);
         // dont forget to setText("") on submit
+        console.log ("handle change of add",isAdd)
       };
+    
+    
 
     return (
       <div className="mb-5">
@@ -17,10 +20,13 @@ export default function TextArea({ lbl_txt, placeholder ,name}) {
           {lbl_txt}
         </label>
         <textarea
-          rows="1" // Set maximum rows to 3
-          onChange={handleChange}
+        
+          rows="1" // Set maximum rows to 1
+          onChange= {isAdd ? handleChange : (e) => onChange(name, e.target.value)}
           name={name}
           placeholder={placeholder}
+          // i don't get it ****
+          {...(!isAdd && { value })}
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg p-2.5 w-full resize-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         />
       </div>
