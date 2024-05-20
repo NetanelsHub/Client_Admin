@@ -66,7 +66,8 @@ function ProductProvider({ children }) {
 
         if (!data) throw new Error("There is not Products");
       } catch (error) { }
-    }  
+    } 
+
     async function deleteProduct(id){
       try {
         const { data } = await axios.delete(`${url}/delete/${id}`);
@@ -74,6 +75,19 @@ function ProductProvider({ children }) {
         setMessage(response.data.message);
       } catch (error) {
         console.log(error);
+      }
+    }
+
+    async function updateProduct(formData,id){
+      try {
+        await axios.put(`${url}/update/${id}`,formData,{
+          withCredentials: true,
+        })
+        setCrudProduct((prev) => !prev);
+        //need to change it with thw message from the server
+        setMessage("Product updated successfully")
+      } catch (error) {
+        setMessage("Error updating product")
       }
     }
 
@@ -99,7 +113,8 @@ function ProductProvider({ children }) {
         productFrom,
         setProductForm,
         isAdd , 
-        setIsAdd
+        setIsAdd,
+        updateProduct
       
 
         

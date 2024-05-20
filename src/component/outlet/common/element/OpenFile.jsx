@@ -42,13 +42,14 @@ export default function LoadImage({ lbl_txt,value }) {
             accept='image/*' // only image and not other file 
             className="hidden" // hide the file input visually
             onChange={handleFileChange}
+            name="product_image"
           />
         </label>
         <input
           type="text"
           className="flex-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg ml-3 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           placeholder="No file chosen"
-          name="product_image"
+          
           value={selectedFile ? selectedFile.name : value ? value :''}
           // value=   { !productFrom ?  selectedFile  ? selectedFile.name : '' : value }
           // value=   {  selectedFile  ? selectedFile.name : '' }
