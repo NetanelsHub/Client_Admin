@@ -84,9 +84,10 @@ export default function TableProduct() {
                   <img
                     width={60}
                     height={60}
-                    src={product.product_image.replace(/^"|"$/g, '')}
+                    src={product.product_image}
                     alt={product.product_name}
                   />
+                  {/* .replace(/^"|"$/g, '') */}
                 </td>
 
                 <td className="px-6 py-4">

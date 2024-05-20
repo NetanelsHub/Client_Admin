@@ -28,7 +28,8 @@ export default function Form() {
     productFrom,
     setProductForm,
     isAdd,
-    setIsAdd
+    setIsAdd,
+    updateProduct
 
 
   } = useContext(productContext)
@@ -37,6 +38,7 @@ export default function Form() {
 
 
   function handleSubmit(e) {
+    // this function for add product 
     setIsAdd(true)
     console.log(" iam in add submit")
     setProductForm("")
@@ -44,8 +46,6 @@ export default function Form() {
     console.log(selectedFile)
     const data = new FormData(e.target);
     data.append("product_category", selectedCategory)
-    data.append("product_image", selectedFile)
-
     // here need to add function axios
     addProduct(data)
 
@@ -77,13 +77,13 @@ export default function Form() {
   };
 
   function handleUpdateSubmit(e) {
+    // to know that we on update product
     setIsAdd(false)
-
     e.preventDefault();
-    console.log("product info to send to the server is :", productFrom)
-    //reset the  productFrom
-    setProductForm("")
-
+    const data = new FormData(e.target);
+    data.append("product_category", selectedCategory)
+    updateProduct(data,productFrom._id)
+    setShowModal(false)
   }
 
   return (
