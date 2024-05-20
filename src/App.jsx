@@ -4,7 +4,7 @@ const Home = lazy(() => import("./component/outlet/pages/Home"));
 const Login = lazy(() => import("./component/outlet/common/form/Login"));
 const Management = lazy(() => import("./component/outlet/pages/Management"));
 const Product = lazy(() => import("./component/outlet/pages/Product"));
-
+const users = lazy(()=> import("./component/outlet/pages/Users"))
 
 import {
   createBrowserRouter,
@@ -15,6 +15,7 @@ import {
   Navigate
 } from "react-router-dom";
 import { globalContext } from "./helper/GlobalContext"
+import Users from "./component/outlet/pages/Users";
 
 
 
@@ -46,6 +47,7 @@ function App() {
         <Route path="home" element={<Home />} />
         <Route path="management" element={<Management />} />
         <Route path="product" element={<Product />} />
+        <Route path="users" element={<Users />} />
         </Route>
         
       </Route>
