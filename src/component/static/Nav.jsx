@@ -44,6 +44,7 @@ export default function Nav() {
             <Li navName={"Home"} />
             <Li navName={"Management"} />
             <Li navName={"Product"} />
+            <Li navName={"Users"} />
 
             <button
               type="click"
