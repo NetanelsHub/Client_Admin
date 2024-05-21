@@ -63,6 +63,7 @@ export default function AddAdmin() {
     
     // call for req server
     upDateSuperUser(values)
+    setShowModal(false)
   }
   
   return (
@@ -73,11 +74,11 @@ export default function AddAdmin() {
      onSubmit={addSubmit ?handleAddSubmit : handleUpdateSubmit}>
 
       <Form className="max-w-sm mx-auto">
-        <LabelAndFiled name="fName" lbl_txt=" Enter First Name"  />
-        <LabelAndFiled name="lName" lbl_txt=" Enter Last Name"  />
-        <LabelAndFiled name="email" lbl_txt=" Enter Email"  />
+        <LabelAndFiled name="admin_fName" lbl_txt=" Enter First Name"  />
+        <LabelAndFiled name="admin_lName" lbl_txt=" Enter Last Name"  />
+        <LabelAndFiled name="admin_email" lbl_txt=" Enter Email"  />
         {/* //  if user on update form , this label not need to show up */}
-        {!optionSelection && <LabelAndFiled name="password" lbl_txt=" Enter Password" />}
+        {!optionSelection && <LabelAndFiled name="admin_password" lbl_txt=" Enter Password" />}
         <SelectRoll name="role" />
 
         <Button btn_txt={"Submit"} btn_type={"Submit"}/>
