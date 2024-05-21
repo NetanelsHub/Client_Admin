@@ -3,27 +3,35 @@ import { globalContext } from '../../../helper/GlobalContext'
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import AddUser from '../common/form/AddUser';
+import { clientContext } from '../../../helper/ClientContext';
+import Message from "../../static/element/Message"
 
 export default function Users() {
-    const {showModal, setShowModal} = useContext(globalContext)
+  const { showModal, setShowModal , message } = useContext(globalContext)
+  const { allClients ,deleteClient} = useContext(clientContext)
 
-    function handleAddUser(){
-        setShowModal(true)
-    }
+  function handleAddUser() {
+    setShowModal(true)
+  }
 
-    function  handleCloseModal(){
-        setShowModal(false)
-    }
+  function handleCloseModal() {
+    setShowModal(false)
+  }
+
+  function handleDelete(client_id){
+    deleteClient(client_id)
+
+  }
   return (
     // need to add the table 
 
-     <div>
+    <div>
       <div className="overflow-x-auto  ">
         {showModal && (
           <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="absolute inset-0 bg-black opacity-50"></div>
             <div className="relative bg-white p-6 rounded-lg">
-                
+
               <button
                 onClick={handleCloseModal}
                 className="absolute top-0 right-0 m-2 p-2 text-gray-500 hover:text-gray-800"
@@ -44,7 +52,7 @@ export default function Users() {
             Add new Users
           </button>
           {/* {console.log(message)} */}
-          {/* <div> {message && <Message text={message} />}</div> */}
+          <div> {message && <Message text={message} />}</div>
 
         </div>
       </div>
@@ -54,7 +62,7 @@ export default function Users() {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3">
-               Name
+                Name
               </th>
               <th scope="col" className="px-6 py-3">
                 Last Name
@@ -66,35 +74,34 @@ export default function Users() {
                 Action
               </th>
             </tr>
-           </thead>
-          {/* {userData && (
-            // <tbody> */} 
-              {/* {userData.map((superUser, index) => (
-                <tr
-                  key={index}
-                  className={
-                    index % 2 === 0
-                      ? "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-                      : "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-                  }
-                >
-                 
-                  <td className="px-6 py-4">{superUser.admin_fName}</td>
-                  <td className="px-6 py-4">{superUser.admin_lName}</td>
-                  <td className="px-6 py-4">{superUser.admin_email}</td>
-                  <td className="px-6 py-4">{superUser.admin_role}</td>
-                  <td className="px-6 py-4"> */}
-                    {/* <button onClick={() => handleDelete(superUser._id)}>
+          </thead>
+
+          <tbody>
+            {allClients.map((client, index) => (
+              <tr
+                key={index}
+                className={
+                  index % 2 === 0
+                    ? "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                    : "odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                }
+              >
+                <td className="px-6 py-4">{client.client_fName}</td>
+                <td className="px-6 py-4">{client.client_lName}</td>
+                <td className="px-6 py-4">{client.client_email}</td>
+                <td className="px-6 py-4">
+                  <button onClick={() => handleDelete(client._id)}>
                       <MdDelete className="text-red-600" size={25} />
                     </button>
-                    <button onClick={() => handleUpdate(superUser)}>
+                    {/* <button onClick={() => handleUpdate(superUser)}>
                       <FaEdit className="text-blue-500" size={25} />
-                    </button> */}
-                  {/* </td>
-                </tr>
-              ))}
-            </tbody> */}
-          {/* )} */}
+                    </button>  */}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+
+
         </table>
       </div>
     </div>

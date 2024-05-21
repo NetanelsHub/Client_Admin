@@ -62,8 +62,8 @@ export default function Login() {
     >
       <div className="flex justify-center items-center h-screen">
         <Form className="w-1/4 mx-auto">
-          <LabelAndFiled name="email" lbl_txt="Your email" />
-          <LabelAndFiled name="password" lbl_txt="Your password" />
+          <LabelAndFiled name="admin_email" lbl_txt="Your email" />
+          <LabelAndFiled name="admin_password" lbl_txt="Your password" />
           <div className="mb-5">
             <a
               href="/forgot-password"
