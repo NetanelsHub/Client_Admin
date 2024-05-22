@@ -1,3 +1,4 @@
+//user page - table  add admin , delete , update button
 import React, { useContext } from 'react'
 import { globalContext } from '../../../helper/GlobalContext'
 import { MdDelete } from "react-icons/md";
@@ -8,9 +9,10 @@ import Message from "../../static/element/Message"
 
 export default function Users() {
   const { showModal, setShowModal , message } = useContext(globalContext)
-  const { allClients ,deleteClient} = useContext(clientContext)
+  const { allClients ,deleteClient,setOnAddClient,setClientInfo,upDateClient} = useContext(clientContext)
 
   function handleAddUser() {
+    setOnAddClient(true)
     setShowModal(true)
   }
 
@@ -20,7 +22,21 @@ export default function Users() {
 
   function handleDelete(client_id){
     deleteClient(client_id)
+  }
 
+  function handleUpdate(client) {
+    //to know if we on update ,(remove the password input)
+    setOnAddClient(false)
+    // to upload  the info inside the form
+    // console.log(client)
+    const {client_fName,client_lName,client_email, client_password ,_id} = client
+    // get the client info for the form and for server
+    setClientInfo({client_fName,client_lName,client_email, client_password ,_id})
+    
+
+    setShowModal(true)
+    
+    
   }
   return (
     // need to add the table 
@@ -45,6 +61,7 @@ export default function Users() {
         )}
         <div className="flex justify-end">
           <button
+          // button for add client
             type="button"
             onClick={handleAddUser}
             className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -93,9 +110,9 @@ export default function Users() {
                   <button onClick={() => handleDelete(client._id)}>
                       <MdDelete className="text-red-600" size={25} />
                     </button>
-                    {/* <button onClick={() => handleUpdate(superUser)}>
+                    <button onClick={() => handleUpdate(client)}>
                       <FaEdit className="text-blue-500" size={25} />
-                    </button>  */}
+                    </button> 
                 </td>
               </tr>
             ))}

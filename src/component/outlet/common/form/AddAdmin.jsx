@@ -58,7 +58,7 @@ export default function AddAdmin() {
 
   // if  OptionSelection = true , this function will trigger  else  handleAddSubmit will trigger
   function handleUpdateSubmit(values,id) {
-   // the id only  to check if i get the id og specifics td of thi user
+   // the id only  to check if i get the id of specifics td of this user
     console.log("in handleUpdateSubmit and the id is :", id)
     
     // call for req server

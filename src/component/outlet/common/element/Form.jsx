@@ -17,7 +17,9 @@ const options = [
   { value: "Nail Kit", label: "Nail kit" },
   { value: "Premium", label: "Premium" },
 ];
-
+// need to replace it with category
+// make state to get the category from the server
+// import to here 
 export default function Form() {
   const { selectedCategory,
     setSelectedCategory,

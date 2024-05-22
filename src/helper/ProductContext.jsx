@@ -115,13 +115,8 @@ function ProductProvider({ children }) {
         isAdd , 
         setIsAdd,
         updateProduct
-      
-
-        
        
     };
-
-  
 
     return (
         <productContext.Provider value={value}>
