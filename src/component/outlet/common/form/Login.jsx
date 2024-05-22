@@ -46,11 +46,13 @@ export default function Login() {
       // setError("Invalid email or password");
     }
   }
+
   useEffect(() => {
     if (show) {
-      navigate("/");
+      const loc = localStorage.getItem("loc") ?? "/home"
+      navigate(`${loc}`);
     }
-  }, []);
+  }, [show]);
 
   
 
