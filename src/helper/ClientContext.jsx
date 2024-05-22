@@ -4,29 +4,30 @@ import { globalContext } from "./GlobalContext";
 
 const url = "http://localhost:3000/client";
 
-export const clientContext = createContext()
+export const clientContext = createContext();
 
 function ClientProvider({ children }) {
-
-  const { setMessage } = useContext(globalContext)
-  const [allClients, setAllClients] = useState([])
+  const { setMessage } = useContext(globalContext);
+  // for client info
+  const [allClients, setAllClients] = useState([]);
   // for prev and re prev
-  const [crudClients, setCrudClients] = useState(false)
-
-
+  const [crudClients, setCrudClients] = useState(false);
+  // to know if we on add client - true , on update client - false
+  const [onAddClient,setOnAddClient ] = useState(true)
+  // get the client info from the table 
+  const [clientInfo , setClientInfo] = useState("")
 
   async function addClient(values) {
     try {
       const data = await axios.post(`${url}/register`, values, {
         withCredentials: true,
       });
-      setCrudClients((perv) => !perv)
-      setMessage(data.message)
+      setCrudClients((perv) => !perv);
+      setMessage(data.message);
       return data;
     } catch (error) {
       console.error("An error occurred while adding the product:", error);
       setMessage("An error occurred while adding the product.");
-
     }
   }
 
@@ -39,23 +40,49 @@ function ClientProvider({ children }) {
       if (!data) throw new Error("There is not clients");
 
       setAllClients(data.allClients);
-
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   }
 
-  async function deleteClient(id){
+  async function deleteClient(id) {
     try {
-      console.log("id:",id)
+      console.log("id:", id);
       const { data } = await axios.delete(`${url}/delete/${id}`);
-      setCrudClients((perv) => !perv)
+      setCrudClients((perv) => !perv);
       // setMessage(response.data.message);
     } catch (error) {
       console.log(error);
       // setMessage(data.message);
     }
   }
+
+  async function upDateClient(values) {
+    try {
+      // get the id and client_password
+      const { _id, client_password } = clientInfo;
+
+      // cant send the server info without password.
+      // i wil add it to the values
+      // Combine info values with admin_password
+      const updatedValues = { ...values, client_password };
+
+      // console.log(_id , " the id i send to server")
+      const response = await axios.put(`${url}/update/${_id}`,updatedValues)
+      
+      setCrudClients((prev) => !prev);
+      //there is problem with the massage i get from the server
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage(response.data.message);
+    } finally {
+      //  set the selection to is normal
+      // setOptionSelection(false);
+      // set back  the button submit to add and not to update
+      setOnAddClient(true);
+    }
+
+    // and need to re render the table !!!!
+  }
+
   const value = {
     addClient,
     getClients,
@@ -63,12 +90,17 @@ function ClientProvider({ children }) {
     setAllClients,
     crudClients,
     setCrudClients,
-    deleteClient
-  }
+    deleteClient,
+    onAddClient,
+    setOnAddClient,
+    clientInfo ,
+    setClientInfo,
+    upDateClient
+  };
 
   useEffect(() => {
-    getClients()
-  }, [crudClients])
+    getClients();
+  }, [crudClients]);
 
   return (
     <clientContext.Provider value={value}>{children}</clientContext.Provider>
