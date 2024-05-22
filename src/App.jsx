@@ -37,12 +37,12 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
+
         <Route path="login" element={<Login />} />
 
         <Route
           path="/"
           element={show ? <Outlet /> : <Navigate to={"/login"} />}
-
         >
         <Route path="home" element={<Home />} />
         <Route path="management" element={<Management />} />
