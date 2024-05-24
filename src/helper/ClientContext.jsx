@@ -38,7 +38,7 @@ function ClientProvider({ children }) {
       });
 
       if (!data) throw new Error("There is not clients");
-
+     
       setAllClients(data.allClients);
     } catch (error) {}
   }
@@ -59,7 +59,7 @@ function ClientProvider({ children }) {
     try {
       // get the id and client_password
       const { _id, client_password } = clientInfo;
-
+      console.log(" in up date client")
       // cant send the server info without password.
       // i wil add it to the values
       // Combine info values with admin_password
@@ -69,10 +69,9 @@ function ClientProvider({ children }) {
       const response = await axios.put(`${url}/update/${_id}`,updatedValues)
       
       setCrudClients((prev) => !prev);
-      //there is problem with the massage i get from the server
       setMessage(response.data.message);
     } catch (error) {
-      setMessage(response.data.message);
+      setMessage("An error occurred while update the client");
     } finally {
       //  set the selection to is normal
       // setOptionSelection(false);
@@ -80,7 +79,7 @@ function ClientProvider({ children }) {
       setOnAddClient(true);
     }
 
-    // and need to re render the table !!!!
+  
   }
 
   const value = {
