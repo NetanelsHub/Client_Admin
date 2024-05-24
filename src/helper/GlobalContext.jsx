@@ -28,15 +28,19 @@ function GlobalProvider({ children }) {
 
   // to set the option between addSubmit or updateSubmit
   const [addSubmit, setAddSubmit] = useState(true);
-
-  // get the id from the table  need to delete it
-  // const [id, setId] = useState("")
+  // set the roll when log in  admin - can get to management 
+  const [adminRole,setAdminRole]= useState ("")
+  
 
   async function loginAdmin(formData) {
     try {
       const { data } = await axios.post(`${url}/login`, formData, {
         withCredentials: true,
       });
+
+      // get the admin_role from data 
+      setAdminRole(data.admin.admin_role)
+
       if (!data.success) throw new Error("don't success to login");
     } catch (error) {}
   }
@@ -135,6 +139,7 @@ function GlobalProvider({ children }) {
 
   //global context stuck
   const value = {
+    adminRole,
     show,
     setShow,
     loginAdmin,

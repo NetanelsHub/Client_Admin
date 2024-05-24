@@ -4,7 +4,7 @@ const Home = lazy(() => import("./component/outlet/pages/Home"));
 const Login = lazy(() => import("./component/outlet/common/form/Login"));
 const Management = lazy(() => import("./component/outlet/pages/Management"));
 const Product = lazy(() => import("./component/outlet/pages/Product"));
-const users = lazy(()=> import("./component/outlet/pages/Users"))
+const users = lazy(() => import("./component/outlet/pages/Users"))
 
 import {
   createBrowserRouter,
@@ -16,11 +16,12 @@ import {
 } from "react-router-dom";
 import { globalContext } from "./helper/GlobalContext"
 import Users from "./component/outlet/pages/Users";
+import ErrorPage from "./component/outlet/common/element/ErrorPage"
 
 
 
 function Root() {
-  const { show } = useContext(globalContext)
+  const { show, adminRole } = useContext(globalContext)
   return (
     <>
       {show && <Nav />}
@@ -32,11 +33,12 @@ function Root() {
 }
 
 function App() {
-  const { show } = useContext(globalContext)
+  const { show, adminRole } = useContext(globalContext)
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Root />}>
+
+      <Route path="/" element={<Root />} errorElement={<ErrorPage/>}> ;
 
         <Route path="login" element={<Login />} />
 
@@ -44,12 +46,13 @@ function App() {
           path="/"
           element={show ? <Outlet /> : <Navigate to={"/login"} />}
         >
-        <Route path="home" element={<Home />} />
-        <Route path="management" element={<Management />} />
-        <Route path="product" element={<Product />} />
-        <Route path="users" element={<Users />} />
+          <Route path="home" element={<Home />} />
+          {/* only admin  can enter the management  */}
+          {adminRole === "Admin" && <Route path="management" element={<Management />} />}
+          <Route path="product" element={<Product />} />
+          <Route path="users" element={<Users />} />
         </Route>
-        
+
       </Route>
     )
   );
