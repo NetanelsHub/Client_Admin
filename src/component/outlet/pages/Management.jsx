@@ -1,17 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState , useEffect} from "react";
 import AddAdmin from "../common/form/AddAdmin";
 import { globalContext } from "../../../helper/GlobalContext";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-// import axios from "axios";
+import axios from "axios";
 import Message from "../../static/element/Message"
-
+const url = "http://localhost:3000/user"
 
 export default function Management() {
-  const { showModal, setShowModal, userData, deleteSuperUser, message,setOptionSelection,setUpdateUser, setAddSubmit } = useContext(globalContext)
+  const { showModal, setShowModal, userData, deleteSuperUser, message,setOptionSelection,setUpdateUser, setAddSubmit ,sendReq ,setUserData} = useContext(globalContext)
   // const [superUser, setSuperUser] = useState(null)
   // console.log(superUser)
   // console.log(userData)
+
+
+  async function getSuperUser() {
+    try {
+      // console.log("hi");
+      const { data } = await axios.get(`${url}/getSuperUser`, {
+        withCredentials: true,
+      });
+      setUserData(data.allUser);
+      console.log(data);
+      if (!data) throw new Error("There is not Admin/Manager");
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    getSuperUser();
+  }, [sendReq]);
+
 
   function handleAddAdmin() {
     console.log("in handleAddAdmin")

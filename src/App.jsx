@@ -50,7 +50,7 @@ function App() {
           path="/"
           element={show ? <Outlet /> : <Navigate to={"/login"} />}
         >
-          <Route path="home" element={<Home />} />
+          <Route index element={<Home />} />
           {/* only admin  can enter the management  */}
           {console.log("admin role:",adminRole)}
           {adminRole === "Admin" && <Route path="management" element={<Management />} />}

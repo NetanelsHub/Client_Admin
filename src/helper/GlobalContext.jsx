@@ -47,16 +47,27 @@ function GlobalProvider({ children }) {
       // inset the admin role in local storage
       // if i refresh i lose it this why i insert it in local storage
       localStorage.setItem('adminRole', role);
+      localStorage.setItem('token',true);
       // insert the role to use state
       setAdminRole(data.admin.admin_role)
 
       if (!data.success) throw new Error("don't success to login");
     } catch (error) {}
   }
-
+  async function logOut(){
+    try {
+     const {data} = await axios.get(`${url}/logout`,{withCredentials:true});
+    
+     if(data.success){
+      setIsAuth(false)
+     }
+    } catch (error) {
+      console.log(error)
+    }
+  }
   async function checkToken() {
     try {
-      console.log("hi");
+      if(!localStorage.getItem("token")) return;
       const { data } = await axios.get(`${url}/auth`, {
         withCredentials: true,
       });
@@ -65,20 +76,13 @@ function GlobalProvider({ children }) {
       console.log("after the if");
       setShow(true);
       console.log(show, "token");
-    } catch (error) {}
+    } catch (error) {
+      if(localStorage.getItem("token")) localStorage.removeItem("token");
+    }
   }
 
-  async function getSuperUser() {
-    try {
-      // console.log("hi");
-      const { data } = await axios.get(`${url}/getSuperUser`, {
-        withCredentials: true,
-      });
-      setUserData(data.allUser);
-      console.log(data);
-      if (!data) throw new Error("There is not Admin/Manager");
-    } catch (error) {}
-  }
+
+
 
   async function addSuperUser(formData) {
     try {
@@ -142,7 +146,10 @@ function GlobalProvider({ children }) {
 
   useEffect(() => {
     checkToken();
-    getSuperUser();
+  }, []);
+
+  
+  useEffect(() => {
     setUpdateUser("");
   }, [sendReq]);
 
@@ -166,7 +173,10 @@ function GlobalProvider({ children }) {
     setUpdateUser,
     addSubmit,
     setAddSubmit,
-    setAdminRole
+    setAdminRole,
+    logOut,
+    sendReq,
+    setUserData
   };
 
   return (

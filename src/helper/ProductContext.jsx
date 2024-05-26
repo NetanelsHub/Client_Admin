@@ -55,18 +55,7 @@ function ProductProvider({ children }) {
         }
       }
 
-    async function getAllProduct(){
-      try {
-        // console.log("hi product");
-        const { data } = await axios.get(`${url}/getAllProducts`, {
-          withCredentials: true,
-        });
-        setDataProduct(data.products);
-        console.log(data);
 
-        if (!data) throw new Error("There is not Products");
-      } catch (error) { }
-    } 
 
     async function deleteProduct(id){
       try {
@@ -91,10 +80,7 @@ function ProductProvider({ children }) {
       }
     }
 
-    useEffect(()=>{
-      getAllProduct()
 
-    },[crudProduct])
 
 
     // Global context state
@@ -114,7 +100,8 @@ function ProductProvider({ children }) {
         setProductForm,
         isAdd , 
         setIsAdd,
-        updateProduct
+        updateProduct,
+        crudProduct
        
     };
 

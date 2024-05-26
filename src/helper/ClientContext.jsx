@@ -97,12 +97,11 @@ function ClientProvider({ children }) {
     clientInfo ,
     setClientInfo,
     upDateClient,
+    crudClients
     
   };
 
-  useEffect(() => {
-    getClients();
-  }, [crudClients]);
+
 
   return (
     <clientContext.Provider value={value}>{children}</clientContext.Provider>

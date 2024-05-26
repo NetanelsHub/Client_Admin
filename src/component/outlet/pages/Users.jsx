@@ -1,15 +1,34 @@
 //user page - table  add admin , delete , update button
-import React, { useContext } from 'react'
+import React, { useContext ,useEffect} from 'react'
 import { globalContext } from '../../../helper/GlobalContext'
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import AddUser from '../common/form/AddUser';
 import { clientContext } from '../../../helper/ClientContext';
 import Message from "../../static/element/Message"
+import axios from "axios";
+const url = "http://localhost:3000/client";
 
 export default function Users() {
   const { showModal, setShowModal , message } = useContext(globalContext)
-  const { allClients ,deleteClient,setOnAddClient,setClientInfo,upDateClient} = useContext(clientContext)
+  const { allClients ,deleteClient,setOnAddClient,setClientInfo,upDateClient,setAllClients,crudClients} = useContext(clientContext)
+
+  async function getClients() {
+    try {
+      const { data } = await axios.get(`${url}/getClients`, {
+        withCredentials: true,
+      });
+
+      if (!data) throw new Error("There is not clients");
+     console.log(data)
+     
+      setAllClients(data.allClients);
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    getClients();
+  }, [crudClients]);
 
   function handleAddUser() {
     setOnAddClient(true)

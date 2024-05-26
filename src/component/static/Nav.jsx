@@ -5,10 +5,10 @@ import { globalContext } from "../../helper/GlobalContext";
 
 export default function Nav() {
   const navigate = useNavigate();
-  const { setShow, adminRole } = useContext(globalContext);
-  function handleLogOut() {
-    // delete the cookies from web browser
-    document.cookie = "token" + "=; Max-Age=-99999999;";
+  const { setShow, adminRole ,logOut} = useContext(globalContext);
+  async function handleLogOut() {
+    await logOut();
+    localStorage.removeItem("token");
     setShow(false);
     navigate("/login");
   }
@@ -41,7 +41,7 @@ export default function Nav() {
         </button>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <Li navName={"Home"} />
+            <Li navName={"Dashboard"} />
             {adminRole === "Admin" && <Li navName={"Management"} />}
             <Li navName={"Product"} />
             <Li navName={"Users"} />
