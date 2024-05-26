@@ -23,6 +23,7 @@ function ClientProvider({ children }) {
         withCredentials: true,
       });
       setCrudClients((perv) => !perv);
+      console.log(data);
       setMessage(data.message);
       return data;
     } catch (error) {
@@ -38,6 +39,7 @@ function ClientProvider({ children }) {
       });
 
       if (!data) throw new Error("There is not clients");
+     console.log(data)
      
       setAllClients(data.allClients);
     } catch (error) {}
@@ -59,7 +61,7 @@ function ClientProvider({ children }) {
     try {
       // get the id and client_password
       const { _id, client_password } = clientInfo;
-      console.log(" in up date client")
+      // console.log(" in up date client")
       // cant send the server info without password.
       // i wil add it to the values
       // Combine info values with admin_password
@@ -94,7 +96,8 @@ function ClientProvider({ children }) {
     setOnAddClient,
     clientInfo ,
     setClientInfo,
-    upDateClient
+    upDateClient,
+    
   };
 
   useEffect(() => {

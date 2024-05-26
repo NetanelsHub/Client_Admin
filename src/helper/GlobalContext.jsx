@@ -28,8 +28,13 @@ function GlobalProvider({ children }) {
 
   // to set the option between addSubmit or updateSubmit
   const [addSubmit, setAddSubmit] = useState(true);
+
   // set the roll when log in  admin - can get to management 
-  const [adminRole,setAdminRole]= useState ("")
+  // when we using a function inside the useState its ect like useEffect with []
+  // and do it only 1 time 
+  const [adminRole,setAdminRole]= useState(() => {
+    return localStorage.getItem('adminRole') || '';
+  });
   
 
   async function loginAdmin(formData) {
@@ -37,8 +42,12 @@ function GlobalProvider({ children }) {
       const { data } = await axios.post(`${url}/login`, formData, {
         withCredentials: true,
       });
-
-      // get the admin_role from data 
+       // get the admin_role from data 
+      const role = data.admin.admin_role
+      // inset the admin role in local storage
+      // if i refresh i lose it this why i insert it in local storage
+      localStorage.setItem('adminRole', role);
+      // insert the role to use state
       setAdminRole(data.admin.admin_role)
 
       if (!data.success) throw new Error("don't success to login");
@@ -157,6 +166,7 @@ function GlobalProvider({ children }) {
     setUpdateUser,
     addSubmit,
     setAddSubmit,
+    setAdminRole
   };
 
   return (
