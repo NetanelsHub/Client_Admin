@@ -57,7 +57,7 @@ function ProductProvider({ children }) {
 
     async function getAllProduct(){
       try {
-        console.log("hi product");
+        // console.log("hi product");
         const { data } = await axios.get(`${url}/getAllProducts`, {
           withCredentials: true,
         });

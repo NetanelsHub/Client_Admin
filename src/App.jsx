@@ -5,6 +5,7 @@ const Login = lazy(() => import("./component/outlet/common/form/Login"));
 const Management = lazy(() => import("./component/outlet/pages/Management"));
 const Product = lazy(() => import("./component/outlet/pages/Product"));
 const users = lazy(() => import("./component/outlet/pages/Users"))
+// import users from "./component/outlet/pages/Users"
 
 import {
   createBrowserRouter,
@@ -33,7 +34,10 @@ function Root() {
 }
 
 function App() {
-  const { show, adminRole } = useContext(globalContext)
+  const { show, adminRole ,setAdminRole } = useContext(globalContext)
+  // i  get the admin roll from the local Storage to avoid the refresh problem !
+  // when i refresh because i don't rerender the login function i lost it the value.
+  // setAdminRole(localStorage.getItem('adminRole') || '')
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -48,6 +52,7 @@ function App() {
         >
           <Route path="home" element={<Home />} />
           {/* only admin  can enter the management  */}
+          {console.log("admin role:",adminRole)}
           {adminRole === "Admin" && <Route path="management" element={<Management />} />}
           <Route path="product" element={<Product />} />
           <Route path="users" element={<Users />} />
