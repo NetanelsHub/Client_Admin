@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Li({ navName }) {
-  
   function saveLocation(){
     const {pathname} = location;
     localStorage.setItem("loc",pathname);
@@ -14,7 +13,7 @@ export default function Li({ navName }) {
       aria-current="page"
       onClick={saveLocation}
     >
-      <Link to={`/${navName}`}>{navName}</Link>
+      <Link to={`/${navName !== "Dashboard" ? navName : ""}`}>{navName}</Link>
     </li>
   );
 }

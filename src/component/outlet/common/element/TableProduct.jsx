@@ -1,15 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext,useEffect } from "react";
 import { productContext } from "../../../../helper/ProductContext";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import axios from "axios";
+
+const url = "http://localhost:3000/products";
 
 export default function TableProduct() {
   const { dataProduct, deleteProduct, setProductForm,setShowModal,productFrom, setSelectedFile, isAdd , 
-    setIsAdd } = useContext(productContext);
+    setIsAdd ,crudProduct } = useContext(productContext);
 
+  async function getAllProduct(){
+      try {
+        // console.log("hi product");
+        const { data } = await axios.get(`${url}/getAllProducts`, {
+          withCredentials: true,
+        });
+        setDataProduct(data.products);
+        console.log(data);
+
+        if (!data) throw new Error("There is not Products");
+      } catch (error) { }
+    } 
   function handleDelete(id) {
     deleteProduct(id)
   }
+
+  useEffect(()=>{
+    getAllProduct()
+
+  },[crudProduct])
 
   function handleUpdate(product) {
     console.log("on update")
