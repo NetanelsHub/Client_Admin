@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Chart, defaults } from 'chart.js/auto'
 import { Bar, Line, Doughnut } from "react-chartjs-2"
 import { clientContext } from "../../../helper/ClientContext"
-
+import axios from "axios"
 
 // const url = "http://localhost:3000/client";
 
@@ -27,34 +27,39 @@ defaults.plugins.title.font.size = 20
 
 
 export default function Home() {
+  const { allClients,setAllClients,crudClients } = useContext(clientContext)
+  const [arrData, setArrData] = useState(null)
 
-  // const { allClients } = useContext(clientContext)
-  // const [arrData, setArrData] = useState("")
-  // console.log(allClients)
-  // if (allClients) {
-  //   console.log("home:", allClients[0].createdAt)
 
-  //   // make array of date from users create at  and sort it 
-  //   const arrDateClient = allClients.map((val, index) => {
-  //     return val.createdAt.split("T")[0]
-  //   })
-  //   console.log("Array withe date only:", arrDateClient)
+  useEffect(() => {
+    if (allClients) {
+      // console.log("home:", allClients[0].createdAt)
+  
+      // // make array of date from users create at  and sort it 
+      const arrDateClient = allClients.map((val, index) => {
+        return val.createdAt.split("T")[0]
+      })
+       console.log("Array withe date only:", arrDateClient)
+  
+      // // now i have array of date i need to get count of user for each date
+      const dateCount = arrDateClient.reduce((acc, val) => {
+        // if date not in acc its count will be 1 
+        // if data in acc add is value + 1
+        if (acc[val]) {
+          acc[val]++;
+        } else {
+          acc[val] = 1;
+        }
+        return acc;
+      }, {});
+  
+      // console.log(dateCount);
+  
+      setArrData(dateCount)
+    }
+  }, [allClients])
 
-  //   // now i have array of date i need to get count of user for each date
-  //   const dateCount = arrDateClient.reduce((acc, val) => {
-  //     if (acc[val]) {
-  //       acc[val]++;
-  //     } else {
-  //       acc[val] = 1;
-  //     }
-  //     return acc;
-  //   }, {});
-
-  //   console.log(dateCount);
-
-  //   setArrData(dateCount)
-  // }
-
+  
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
       <h1 className='text-xl text-blue-600 '>Statistics</h1>
@@ -64,22 +69,19 @@ export default function Home() {
         <Bar
           data={{
             // the x info
-            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            // labels: Object.keys(arrData),
+            // labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            labels :arrData ? Object.keys(arrData) : [],
+        
             // the y info
             datasets: [{
-              label: "New User per day",
-              // the real date need to get it from server /api
-              data: [1, 5, 10, 15, 3, 2, 7]
-              // data: Object.values(arrData)
+              label: "New Users per day",
+              data:arrData ?  Object.values(arrData) : [],
             },
               // using 2 bar :      to make  bar in  inside a bar 
               // {
               //   label: "Last weak",
               //   data: [2,6,7,5,10,6,8]
               // }
-
-
             ]
            
 
@@ -87,7 +89,7 @@ export default function Home() {
           options={{
             plugins: {
               title: {
-                text: "New user"
+                text: "New users"
               }
             },
           }}
@@ -102,6 +104,7 @@ export default function Home() {
           {/* insert it a component of chart */}
           <Doughnut
             data={{
+              // labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
               labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
               // the y info
               datasets: [{
@@ -116,11 +119,11 @@ export default function Home() {
           {/* insert it a component of chart */}
           <Line
             data={{
-              labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+              labels: arrData ? Object.keys(arrData) : [],
               // the y info
               datasets: [{
-                label: "Order per day",
-                data: [8, 5, 12, 2, 7, 1, 9]
+                label: "Users per day",
+                data: arrData ?  Object.values(arrData) : []
               }]
             }}
             // to add title
@@ -134,7 +137,7 @@ export default function Home() {
               plugins: {
                 // set the text of the title
                 title: {
-                  text: "Weakly sell"
+                  text: "Users "
                 }
               },
             }}
