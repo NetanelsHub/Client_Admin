@@ -97,7 +97,7 @@ function ClientProvider({ children }) {
     clientInfo ,
     setClientInfo,
     upDateClient,
-    crudClients
+    
     
   };
 
