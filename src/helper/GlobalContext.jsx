@@ -59,7 +59,7 @@ function GlobalProvider({ children }) {
      const {data} = await axios.get(`${url}/logout`,{withCredentials:true});
     
      if(data.success){
-      setIsAuth(false)
+      setShow(false);
      }
     } catch (error) {
       console.log(error)

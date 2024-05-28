@@ -101,7 +101,8 @@ function ProductProvider({ children }) {
         isAdd , 
         setIsAdd,
         updateProduct,
-        crudProduct
+        crudProduct,
+        setDataProduct
        
     };
 

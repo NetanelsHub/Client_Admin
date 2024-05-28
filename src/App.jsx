@@ -1,11 +1,11 @@
 import { lazy, Suspense, useContext } from "react";
 import Nav from "./component/static/Nav";
-const Home = lazy(() => import("./component/outlet/pages/Home"));
+const Dashboard = lazy(() => import("./component/outlet/pages/Dashboard"));
 const Login = lazy(() => import("./component/outlet/common/form/Login"));
 const Management = lazy(() => import("./component/outlet/pages/Management"));
 const Product = lazy(() => import("./component/outlet/pages/Product"));
 // const users = lazy(() => import("./component/outlet/pages/Users"))
-import users from "./component/outlet/pages/Users"
+
 
 import {
   createBrowserRouter,
@@ -17,7 +17,9 @@ import {
 } from "react-router-dom";
 import { globalContext } from "./helper/GlobalContext"
 import Users from "./component/outlet/pages/Users";
-import ErrorPage from "./component/outlet/common/element/ErrorPage"
+// import ErrorPage from "./component/outlet/common/element/ErrorPage"
+
+const Orders = lazy(() => import("./component/outlet/pages/Orders"));
 
 
 
@@ -50,13 +52,14 @@ function App() {
           path="/"
           element={show ? <Outlet /> : <Navigate to={"/login"} />}
         >
-          <Route index element={<Home />} />
+          <Route index element={<Dashboard />} />
           {/* only admin  can enter the management  */}
           {/* {console.log("admin role:",adminRole)} */}
-          <Route path="home" element={<Home />} />
+          <Route path="home" element={<Dashboard />} />
           {adminRole === "Admin" && <Route path="management" element={<Management />} />}
           <Route path="product" element={<Product />} />
           <Route path="users" element={<Users />} />
+          <Route path="orders" element={<Orders />} />
         </Route>
 
       </Route>
