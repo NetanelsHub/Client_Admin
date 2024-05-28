@@ -6,7 +6,7 @@ import { Bar, Line, Doughnut } from "react-chartjs-2"
 import { clientContext } from "../../../helper/ClientContext"
 import axios from "axios"
 
-// const url = "http://localhost:3000/client";
+const url = "http://localhost:3000/client";
 
 // defaults -  global
 // its adjust its self according to div size if you make it false
@@ -29,6 +29,23 @@ defaults.plugins.title.font.size = 20
 export default function Home() {
   const { allClients,setAllClients,crudClients } = useContext(clientContext)
   const [arrData, setArrData] = useState(null)
+
+  async function getClients() {
+    try {
+      const { data } = await axios.get(`${url}/getClients`, {
+        withCredentials: true,
+      });
+
+      if (!data) throw new Error("There is not clients");
+     console.log(data)
+     
+      setAllClients(data.allClients);
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    getClients();
+  }, [crudClients]);
 
 
   useEffect(() => {

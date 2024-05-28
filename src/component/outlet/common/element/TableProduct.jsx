@@ -8,7 +8,7 @@ const url = "http://localhost:3000/products";
 
 export default function TableProduct() {
   const { dataProduct, deleteProduct, setProductForm,setShowModal,productFrom, setSelectedFile, isAdd , 
-    setIsAdd ,crudProduct } = useContext(productContext);
+    setIsAdd ,crudProduct,setDataProduct } = useContext(productContext);
 
   async function getAllProduct(){
       try {
