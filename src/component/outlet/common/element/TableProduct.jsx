@@ -3,6 +3,7 @@ import { productContext } from "../../../../helper/ProductContext";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
+import Pagination from "./Pagination";
 
 const url = "http://localhost:3000/products";
 
@@ -11,6 +12,7 @@ export default function TableProduct() {
     setIsAdd ,crudProduct,setDataProduct } = useContext(productContext);
 
    const [page,setPage] = useState(1);
+   const [pages,setPages] = useState(null);
   async function getAllProduct(){
       try {
         // console.log("hi product");
@@ -18,6 +20,7 @@ export default function TableProduct() {
           withCredentials: true,
         });
         setDataProduct(data.products);
+        setPages(data.pages)
         console.log(data);
 
         if (!data) throw new Error("There is not Products");
@@ -124,6 +127,7 @@ export default function TableProduct() {
           </tbody>
         )}
       </table>
+      <Pagination page={page} setPage={setPage} pages={pages}/>
     </div>
   );
 }
