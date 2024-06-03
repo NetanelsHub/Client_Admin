@@ -2,7 +2,7 @@ import React from "react";
 
 function ButtonsFilter({ filterStatus, setFilterStatus }) {
   return (
-    <div className="w-[80%] mx-auto mb-5 flex gap-2">
+    <div className="w-[80%] mx-auto mb-5 flex gap-2 m-5">
       <button
         onClick={() => setFilterStatus(null)}
         className={`${
@@ -34,6 +34,14 @@ function ButtonsFilter({ filterStatus, setFilterStatus }) {
         } text-white font-semibold hover:text-white py-2 px-4 border hover:border-transparent rounded`}
       >
         Done
+      </button>
+      <button
+        onClick={() => setFilterStatus(4)}
+        className={`${
+          filterStatus === 4 ? "bg-black-600" : "bg-black-300"
+        } text-black font-semibold hover:text-black py-2 px-4 border hover:border-transparent rounded`}
+      >
+        Canceled
       </button>
     </div>
   );

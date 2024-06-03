@@ -78,10 +78,6 @@ export default function Management() {
      
   }
 
-  // async function editSuperUser(superUser) {
-  //   setSuperUser(superUser);
-  //   setShowModal(true);
-  // }
 
   return (
     <div>

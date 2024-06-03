@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { globalContext } from "../../../../helper/GlobalContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import LabelAndFiled from "../element/LabelAndFiled";
@@ -67,12 +67,9 @@ export default function Login() {
           <LabelAndFiled name="admin_email" lbl_txt="Your email" />
           <LabelAndFiled name="admin_password" lbl_txt="Your password" />
           <div className="mb-5">
-            <a
-              href="/forgot-password"
-              className="block text-sm text-gray-900 dark:text-white mb-2"
-            >
-              Forgot password?
-            </a>
+          <Link to="ForgotPassword" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+           Forgot Password?
+          </Link>
           </div>
           <Button btn_txt={"login"} btn_type={"submit"}  />
         </Form>

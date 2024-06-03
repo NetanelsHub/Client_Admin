@@ -51,6 +51,7 @@ export default function Nav() {
              <Li navName={"Product"} />
              <Li navName={"Users"} />
              <Li navName={"Orders"} />
+             <Li navName={"Payment"} />
  
              <button
                type="button"

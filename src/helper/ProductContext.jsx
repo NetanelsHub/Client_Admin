@@ -34,6 +34,8 @@ function ProductProvider({ children }) {
     // a flag to know if  user in product update etc or on add 
     const[isAdd , setIsAdd] = useState(true)
    
+    // ***for order***
+    const [order,setOrder]=useState(null) 
     
 
     async function addProduct(formData) {
@@ -102,7 +104,9 @@ function ProductProvider({ children }) {
         setIsAdd,
         updateProduct,
         crudProduct,
-        setDataProduct
+        setDataProduct,
+        setOrder,
+        order
        
     };
 

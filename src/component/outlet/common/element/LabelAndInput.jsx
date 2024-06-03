@@ -22,7 +22,7 @@ export default function LabelAndInput({ name, lbl_txt,type,value ,onChange = () 
     <div className="mb-5">
       <label
         htmlFor={name}
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
       >
         {lbl_txt} 
       </label>
