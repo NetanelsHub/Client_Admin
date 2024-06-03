@@ -1,12 +1,16 @@
-import {useEffect,useState} from 'react'
+import {useEffect,useState ,useContext} from 'react'
 import OrderTable from '../common/Orders/OrderTable'
 import axios from "axios";
+import { globalContext } from '../../../helper/GlobalContext';
 const url = "http://localhost:3000/orders";
 
 function Orders() { 
     const[dataOrder,setDataOrders]=useState(null)
-    async function getAllOrder(){
-      
+    const[sendGetRequest,setSendGetRequest]=useState(false)
+     const {setMessage}=useContext(globalContext)
+
+
+    async function getAllOrder(){ 
         try {
           console.log("hi order");
           const { data} = await axios.get(`${url}/getOrder`, {
@@ -14,18 +18,32 @@ function Orders() {
           });
           setDataOrders(data)
           console.log(data);
-  
-          if (!orders) throw new Error("There is not Orders");
+          if (!data) throw new Error("There is not Orders");
         } catch (error) { }
       } 
-      
+
  useEffect(()=>{
     getAllOrder()
   
-    },[])
+    },[sendGetRequest])
+
+async function updateStatus(id,status){
+        try {
+         const { data } = await axios.put(`${url}/update/${status}`,{id});
+         
+         if(data.success){
+          setSendGetRequest(prev => !prev)
+          setMessage(data.message)
+          console.log("hhdfh",data.message)
+         }
+      
+        } catch (error) {
+          console.log(error)
+        }
+       }
 
   return (
-    <div>{dataOrder && <OrderTable orders={dataOrder}/>}</div>
+    <div>{dataOrder && <OrderTable orders={dataOrder} updateStatus={updateStatus}/>}</div>
   )
 }
 

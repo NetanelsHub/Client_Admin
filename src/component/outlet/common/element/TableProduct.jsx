@@ -1,4 +1,4 @@
-import React, { useContext,useEffect } from "react";
+import React, { useContext,useEffect, useState } from "react";
 import { productContext } from "../../../../helper/ProductContext";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
@@ -10,10 +10,11 @@ export default function TableProduct() {
   const { dataProduct, deleteProduct, setProductForm,setShowModal,productFrom, setSelectedFile, isAdd , 
     setIsAdd ,crudProduct,setDataProduct } = useContext(productContext);
 
+   const [page,setPage] = useState(1);
   async function getAllProduct(){
       try {
         // console.log("hi product");
-        const { data } = await axios.get(`${url}/getAllProducts`, {
+        const { data } = await axios.get(`${url}/getAllProducts?page=${page}`, {
           withCredentials: true,
         });
         setDataProduct(data.products);
@@ -29,7 +30,7 @@ export default function TableProduct() {
   useEffect(()=>{
     getAllProduct()
 
-  },[crudProduct])
+  },[crudProduct,page])
 
   function handleUpdate(product) {
     console.log("on update")

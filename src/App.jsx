@@ -1,9 +1,14 @@
 import { lazy, Suspense, useContext } from "react";
 import Nav from "./component/static/Nav";
+import ForgotPassword from "./component/outlet/pages/ForgotPassword";
+import ResetPassword from "./component/outlet/pages/ResetPassword";
 const Dashboard = lazy(() => import("./component/outlet/pages/Dashboard"));
 const Login = lazy(() => import("./component/outlet/common/form/Login"));
 const Management = lazy(() => import("./component/outlet/pages/Management"));
 const Product = lazy(() => import("./component/outlet/pages/Product"));
+const Payment = lazy(() => import("./component/outlet/pages/Payment"));
+
+
 // const users = lazy(() => import("./component/outlet/pages/Users"))
 
 
@@ -17,6 +22,7 @@ import {
 } from "react-router-dom";
 import { globalContext } from "./helper/GlobalContext"
 import Users from "./component/outlet/pages/Users";
+import ChatBot from "./component/outlet/common/element/ChatBot";
 // import ErrorPage from "./component/outlet/common/element/ErrorPage"
 
 const Orders = lazy(() => import("./component/outlet/pages/Orders"));
@@ -31,6 +37,7 @@ function Root() {
       <Suspense fallback={<div>loading ...</div>}>
         <Outlet />
       </Suspense>
+      {/* <ChatBot /> */}
     </>
   );
 }
@@ -47,6 +54,8 @@ function App() {
       <Route path="/" element={<Root />} > ;
 
         <Route path="login" element={<Login />} />
+        <Route path="login/ForgotPassword" element={<ForgotPassword />} />
+        <Route path="resetPassword" element={<ResetPassword />} />
 
         <Route
           path="/"
@@ -60,6 +69,8 @@ function App() {
           <Route path="product" element={<Product />} />
           <Route path="users" element={<Users />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="payment" element={<Payment />} />
+
         </Route>
 
       </Route>

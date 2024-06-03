@@ -10,7 +10,7 @@ import {globalContext} from "../../../../helper/GlobalContext"
 
 export default function AddProduct() {
     const { setShowModal ,setSelectedCategory,setProductForm, setIsAdd ,setSelectedFile} = useContext(productContext)
-    const {message,} = useContext(globalContext)
+    const {message} = useContext(globalContext)
 
     function handleAddProduct(e) {
         //reset the update info from the form 
