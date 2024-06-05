@@ -4,9 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import LabelAndFiled from "../element/LabelAndFiled";
-import Button from "../element/Button";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { FcGoogle } from "react-icons/fc";
 
-// import {loginAdmin} from "../serverReq/Post"
+const url = "https://www.googleapis.com/oauth2/v3/userinfo";
 
 const initialValues = {
   admin_email: "",
@@ -29,32 +31,42 @@ const objectSchema = Yup.object({
 
 export default function Login() {
   const navigate = useNavigate();
-  // Accessing the context using useContext hook
-  const { show, setShow, loginAdmin } = useContext(globalContext);
-
+  const { show, setShow, loginAdmin, loginWithGoogle } = useContext(globalContext);
 
   async function handleSubmit(values) {
     try {
-      // console.log(values)
-      // Reset error state
-      await loginAdmin(values); // Call loginAdmin with form values
+      await loginAdmin(values);
       setShow(true);
       navigate("/");
     } catch (error) {
-      // console.error("Login failed:", error);
-      // Handle login error, if necessary
-      // setError("Invalid email or password");
+      console.error("Login failed:", error);
     }
   }
 
   useEffect(() => {
     if (show) {
-      const loc = localStorage.getItem("loc") ?? "/home"
+      const loc = localStorage.getItem("loc") ?? "/home";
       navigate(`${loc}`);
     }
   }, [show]);
 
-  
+  const loginFromGoogle = useGoogleLogin({
+    onSuccess: async (response) => {
+      try {
+        const { data } = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${response.access_token}`,
+          },
+        });
+
+        await loginWithGoogle(data.email);
+        setShow(true);
+        navigate("/");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
 
   return (
     <Formik
@@ -62,26 +74,36 @@ export default function Login() {
       validationSchema={objectSchema}
       onSubmit={handleSubmit}
     >
-      <div className="flex justify-center items-center h-screen">
-        <Form className="w-1/4 mx-auto">
+      <div className="flex justify-center items-center h-screen bg-gray-50 dark:bg-gray-600">
+        <Form className="w-1/4 mx-auto bg-white p-6 rounded-lg shadow-md dark:bg-gray-700">
           <LabelAndFiled name="admin_email" lbl_txt="Your email" />
           <LabelAndFiled name="admin_password" lbl_txt="Your password" />
           <div className="mb-5">
-          <Link to="ForgotPassword" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-           Forgot Password?
-          </Link>
+            <Link
+              to="ForgotPassword"
+              className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+            >
+              Forgot Password?
+            </Link>
           </div>
-          <Button btn_txt={"login"} btn_type={"submit"}  />
+          <div className="flex flex-col space-y-4">
+            <button
+              type="submit"
+              className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Login
+            </button>
+            <button
+              type="button"
+              onClick={loginFromGoogle}
+              className="w-full flex items-center justify-center text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-300 border border-gray-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center dark:bg-blue-700 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-600 dark:text-white"
+            >
+              <FcGoogle className="mr-2" size={25} />
+              Sign in with Google
+            </button>
+          </div>
         </Form>
       </div>
     </Formik>
   );
 }
-
-{/* 
-          <button
-            type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Login
-          </button> */}
