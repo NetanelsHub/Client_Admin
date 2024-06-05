@@ -6,7 +6,7 @@ export default function LabelAndFiled({name, lbl_txt,}) {
     <div className="mb-5">
       <label
         htmlFor={name}
-        className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+        className="block mb-2 text-sm font-medium text-gray-900 dark:text-blue-500"
       >
         {[lbl_txt]}
 

@@ -54,12 +54,37 @@ function GlobalProvider({ children }) {
       if (!data.success) throw new Error("don't success to login");
     } catch (error) {}
   }
+
+  async function loginWithGoogle(admin_email) {
+    try {
+      const { data } = await axios.post(`${url}/loginWithGoogle`, {admin_email}, {
+        withCredentials: true,
+      });
+      console.log(data)
+       // get the admin_role from data 
+      const role = data.admin.admin_role
+      // inset the admin role in local storage
+      // if i refresh i lose it this why i insert it in local storage
+      localStorage.setItem('adminRole', role);
+      localStorage.setItem('token',true);
+      // insert the role to use state
+      setAdminRole(data.admin.admin_role)
+
+      if (!data.success) throw new Error("don't success to login");
+    } catch (error) {}
+  }
+
+
+  
+
   async function logOut(){
     try {
      const {data} = await axios.get(`${url}/logout`,{withCredentials:true});
     
      if(data.success){
       setShow(false);
+      localStorage.removeItem("token");
+
      }
     } catch (error) {
       console.log(error)
@@ -159,6 +184,7 @@ function GlobalProvider({ children }) {
     show,
     setShow,
     loginAdmin,
+    loginWithGoogle,
     showModal,
     setShowModal,
     addSuperUser,
