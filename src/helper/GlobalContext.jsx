@@ -9,6 +9,7 @@ const url = "http://localhost:3000/user";
 export const globalContext = createContext();
 // aaa
 function GlobalProvider({ children }) {
+
   // this show/hide component (form/nav etc)
   const [show, setShow] = useState(false);
   //  pop up the model with the from add/update
@@ -42,15 +43,17 @@ function GlobalProvider({ children }) {
       const { data } = await axios.post(`${url}/login`, formData, {
         withCredentials: true,
       });
-       // get the admin_role from data 
-      const role = data.admin.admin_role
-      // inset the admin role in local storage
-      // if i refresh i lose it this why i insert it in local storage
-      localStorage.setItem('adminRole', role);
-      localStorage.setItem('token',true);
-      // insert the role to use state
-      setAdminRole(data.admin.admin_role)
+      if (data.success){
+        setShow(true);
 
+         // get the admin_role from data 
+        const role = data.admin.admin_role
+        // inset the admin role in local storage
+        // if i refresh i lose it this why i insert it in local storage
+        localStorage.setItem('adminRole', role);
+        localStorage.setItem('token',true);
+        // insert the role to use state
+        setAdminRole(data.admin.admin_role)}
       if (!data.success) throw new Error("don't success to login");
     } catch (error) {}
   }
@@ -60,7 +63,11 @@ function GlobalProvider({ children }) {
       const { data } = await axios.post(`${url}/loginWithGoogle`, {admin_email}, {
         withCredentials: true,
       });
-      console.log(data)
+      
+      if (data.success){
+      setShow(true);
+      // navigate("/");
+     
        // get the admin_role from data 
       const role = data.admin.admin_role
       // inset the admin role in local storage
@@ -68,7 +75,7 @@ function GlobalProvider({ children }) {
       localStorage.setItem('adminRole', role);
       localStorage.setItem('token',true);
       // insert the role to use state
-      setAdminRole(data.admin.admin_role)
+      setAdminRole(data.admin.admin_role)}
 
       if (!data.success) throw new Error("don't success to login");
     } catch (error) {}

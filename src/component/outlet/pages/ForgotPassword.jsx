@@ -8,14 +8,14 @@ import axios from 'axios';
 export default function ForgotPassword() {
   const url = "http://localhost:3000/user/forgotPassword";
   const [sendRecoverEmail, setSendRecoverEmail] = useState(false);
-  const [email, setEmail] = useState("");
+  const [admin_email, setEmail] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const email = e.target.email.value;
-    setEmail(email); // Set email state
+    const admin_email = e.target.admin_email.value;
+    setEmail(admin_email); // Set email state
     try {
-      const { data } = await axios.post(url, { email });
+      const { data } = await axios.post(url, { admin_email });
       console.log(data);
       setSendRecoverEmail(true);
     } catch (error) {
@@ -34,7 +34,7 @@ export default function ForgotPassword() {
               </h2>
               <form onSubmit={handleSubmit} className="mt-4 space-y-4 lg:mt-5 md:space-y-5">
                 <div className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                  <LabelAndInput name={"email"} lbl_txt={"Enter Email"} type={"email"} />
+                  <LabelAndInput name={"admin_email"} lbl_txt={"Enter Email"} type={"email"} />
                 </div>
                 <div className="flex space-x-4">
                   <Button btn_txt={"Reset password"} btn_type={"submit"} className="dark:bg-gray-700 dark:text-white" />
