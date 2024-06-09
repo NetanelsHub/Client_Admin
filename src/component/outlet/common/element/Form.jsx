@@ -123,10 +123,10 @@ export default function Form() {
           </div>
           <div className="flex flex-col md:w-5/8">
             <LabelAndInput
-              name="product_price"
+              name="product_price_before_discount"
               lbl_txt={"Product Price"}
               type={"number"}
-              value={!isAdd ? productFrom.product_price : ""}
+              value={!isAdd ? productFrom.product_price_before_discount : ""}
               onChange={handleInputChange}
             />
             <LabelAndInput

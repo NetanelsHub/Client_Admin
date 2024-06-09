@@ -25,7 +25,7 @@ function ProductProvider({ children }) {
     const [productFrom,setProductForm] = useState ({
       product_name: '',
       product_description: '',
-      product_price: '',
+      product_price_before_discount: '',
       product_amount:"",
       product_discount:"",
       product_image: "",

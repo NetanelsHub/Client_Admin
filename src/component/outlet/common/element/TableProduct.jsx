@@ -11,6 +11,7 @@ export default function TableProduct() {
   const { dataProduct, deleteProduct, setProductForm,setShowModal,productFrom, setSelectedFile, isAdd , 
     setIsAdd ,crudProduct,setDataProduct } = useContext(productContext);
 
+
    const [page,setPage] = useState(1);
    const [pages,setPages] = useState(null);
   async function getAllProduct(){
@@ -64,13 +65,16 @@ export default function TableProduct() {
             Description
             </th>
             <th scope="col" className="px-6 py-3">
-              Price
+            Amount
             </th>
             <th scope="col" className="px-6 py-3">
-              Amount
+            Price
             </th>
             <th scope="col" className="px-6 py-3">
-              Discount
+            Discount
+            </th>
+            <th scope="col" className="px-6 py-3">
+              rtp
             </th>
             <th scope="col" className="px-6 py-3">
               Category
@@ -95,10 +99,14 @@ export default function TableProduct() {
                 }
               >
                 <td className="px-6 py-4">{product.product_name}</td>
+               
                 <td className="px-6 py-4">{product.product_description}</td>
-                <td className="px-6 py-4">{product.product_price}</td>
-                <td className="px-6 py-4">{product.product_amount}</td>
+
+              <td className="px-6 py-4">{product.product_amount}</td>
+                <td className="px-6 py-4">{product.product_price_before_discount}</td>
                 <td className="px-6 py-4">{product.product_discount}</td>
+                <td className="px-6 py-4">{product.product_price}</td>
+
                 <td className="px-6 py-4">
                   {product.product_category.map(
                     (category) => category.category_name

@@ -36,8 +36,7 @@ export default function Login() {
   async function handleSubmit(values) {
     try {
       await loginAdmin(values);
-      setShow(true);
-      navigate("/");
+
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -60,8 +59,7 @@ export default function Login() {
         });
 
         await loginWithGoogle(data.email);
-        setShow(true);
-        navigate("/");
+
       } catch (error) {
         console.log(error);
       }
