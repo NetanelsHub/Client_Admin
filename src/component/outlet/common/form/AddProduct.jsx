@@ -37,8 +37,8 @@ export default function AddProduct() {
 
     return (
         // need to be a add product button
-        <>
-             <div> {message && <Message text={message} />}</div>
+<div className="mt-4 mr-4 flex justify-end">
+             <div > {message && <Message text={message} />}</div>
             <Button btn_txt="Add new product" lbl_type="button" click_function={handleAddProduct} />
             <Model close_function={handleCloseModal}>
                 {/* Add new product button inside the Model */}
@@ -46,7 +46,7 @@ export default function AddProduct() {
             </Model>
             
 
-        </>
+        </div>
 
     )
 }
