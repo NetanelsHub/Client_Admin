@@ -5,13 +5,16 @@ import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
 import Message from "../../static/element/Message"
+import ConfirmModal from "../common/element/ConfirmModal";
 const url = "http://localhost:3000/user"
 
 export default function Management() {
   const { showModal, setShowModal, userData, deleteSuperUser, message,setOptionSelection,setUpdateUser, setAddSubmit ,sendReq ,setUserData} = useContext(globalContext)
-  // const [superUser, setSuperUser] = useState(null)
-  // console.log(superUser)
-  // console.log(userData)
+
+  // בשביל המודל מחיקה
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+  const [selectedAdminId, setSelectedAdminId] = useState(null);
+
 
 
   async function getSuperUser() {
@@ -50,10 +53,17 @@ export default function Management() {
 
   }
 
-  function handleDelete(id) {
-    deleteSuperUser(id)
 
+  function handleDelete(id) {
+    setSelectedAdminId(id);
+    setIsAdminModalOpen(true);
   }
+
+  function confirmDelete() {
+    deleteSuperUser(selectedAdminId);
+    setIsAdminModalOpen(false);
+  }
+
 
   function handleUpdate(superUser){
     console.log(superUser)
@@ -161,6 +171,12 @@ export default function Management() {
             </tbody>
           )}
         </table>
+        <ConfirmModal 
+        isOpen={isAdminModalOpen} 
+        message="Are you sure you want to delete this admin?" 
+        onConfirm={confirmDelete} 
+        onCancel={() => setIsAdminModalOpen(false)} 
+      />
       </div>
     </div>
   );
