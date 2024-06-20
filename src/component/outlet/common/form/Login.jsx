@@ -57,7 +57,7 @@ export default function Login() {
             Authorization: `Bearer ${response.access_token}`,
           },
         });
-
+        console.log(data)
         await loginWithGoogle(data.email);
 
       } catch (error) {
@@ -74,6 +74,10 @@ export default function Login() {
     >
       <div className="flex justify-center items-center h-screen bg-gray-50 dark:bg-gray-600">
         <Form className="w-1/4 mx-auto bg-white p-6 rounded-lg shadow-md dark:bg-gray-700">
+        <h1 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-gray-200">
+      Login Manager
+    </h1>
+
           <LabelAndFiled name="admin_email" lbl_txt="Your email" />
           <LabelAndFiled name="admin_password" lbl_txt="Your password" />
           <div className="mb-5">
