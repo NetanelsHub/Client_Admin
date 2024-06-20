@@ -47,7 +47,7 @@ function App() {
       //errorElement={<ErrorPage/>}
       <Route path="/" element={<Root />} > ;
 
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<Login fallback={<div>loading ...</div>} />} />
         <Route path="login/ForgotPassword" element={<ForgotPassword />} />
         <Route path="resetPassword" element={<ResetPassword />} />
 
