@@ -7,7 +7,7 @@ function Pagination({page, setPage, pages}) {
     pageNumbers.push(i);
 
   return (
-    <div className="flex justify-center items-center w-[50%] mx-auto position:relative bottom-0 ">
+    <div className="flex justify-center items-center w-[50%] mx-auto position:relative bottom-0 z-50">
       <ul className="flex gap-5">
         {pageNumbers.map((number) => (
           <li key={number}>
