@@ -19,7 +19,7 @@ export default function Users() {
 
   const [page, setPage] = useState(1);
   const [pages, setPages] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchEmail, setSearchEmail] = useState("");
 // בשביל המודל מחיקה
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
@@ -61,7 +61,7 @@ export default function Users() {
     }, 500); // זמן המתנה לאחר סיום ההקלדה, במילי-שניות
 
     return () => clearTimeout(timeoutId); // בכדי לא לעשות קריאות רבות מדי, ננקה את ה־timeout בכל שינוי ב־searchEmail
-  }, [searchEmail,crudClients]);
+  }, [searchEmail,crudClients,page]);
 
   function handleAddUser() {
     setOnAddClient(true);

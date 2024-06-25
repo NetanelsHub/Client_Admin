@@ -40,7 +40,7 @@ function handleSort(col,nestedCol){
   setDataOrders(
     orders.filter(
       (order) =>
-        order.clientId.client_fName.includes(searchOrder) ||
+        order.clientId?.client_fName.includes(searchOrder) ||
         order.client_details.client_phone.startsWith(searchOrder) ||
         order._id.startsWith(searchOrder)
     )
@@ -150,7 +150,7 @@ function handleSort(col,nestedCol){
                       minute: "numeric",
                     })}
                   </td>
-                  <td className="px-6 py-4">{order.clientId.client_fName}</td>
+                  <td className="px-6 py-4">{order.clientId?.client_fName}</td>
        
                   <td className="px-6 py-4">
                     {order.client_details.client_phone}
