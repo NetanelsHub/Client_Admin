@@ -1,23 +1,28 @@
 import React from "react";
 
-function Pagination({page, setPage, pages}) {
+function PaginationClient({
+  productPerPage,
+  currentPage,
+  setCurrentPage,
+  totalProduct,
+}) {
   const pageNumbers = [];
-  console.log(pageNumbers)
-  for (let i = 1; i < Math.ceil(pages+1); i++)
+
+  for (let i = 1; i <= Math.ceil(totalProduct / productPerPage); i++)
     pageNumbers.push(i);
 
   return (
-    <div className="flex justify-center items-center w-[50%] mx-auto mt-5">
+    <div className="flex justify-center items-center w-[50%] mx-auto">
       <ul className="flex gap-5">
         {pageNumbers.map((number) => (
           <li key={number}>
             <button
               className={`${
-                page === number
+                currentPage === number
                   ? "bg-blue-500"
                   : "bg-transparent border border-white"
               } p-2.5 rounded`}
-              onClick={() => setPage(number)}
+              onClick={() => setCurrentPage(number)}
             >
               {number}
             </button>
@@ -28,4 +33,4 @@ function Pagination({page, setPage, pages}) {
   );
 }
 
-export default Pagination;
+export default PaginationClient;

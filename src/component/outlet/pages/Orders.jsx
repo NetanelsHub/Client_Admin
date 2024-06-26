@@ -2,6 +2,7 @@ import {useEffect,useState ,useContext} from 'react'
 import OrderTable from '../common/Orders/OrderTable'
 import axios from "axios";
 import { globalContext } from '../../../helper/GlobalContext';
+import FullOrder from '../common/Orders/FullOrder';
 const url = "http://localhost:3000/orders";
 
 function Orders() { 
@@ -24,6 +25,7 @@ function Orders() {
 
  useEffect(()=>{
     getAllOrder()
+    
   
     },[sendGetRequest])
 
@@ -34,7 +36,7 @@ async function updateStatus(id,status){
          if(data.success){
           setSendGetRequest(prev => !prev)
           setMessage(data.message)
-          console.log("hhdfh",data.message)
+          
          }
       
         } catch (error) {
@@ -43,7 +45,9 @@ async function updateStatus(id,status){
        }
 
   return (
-    <div>{dataOrder && <OrderTable orders={dataOrder} updateStatus={updateStatus}/>}</div>
+    <div>{dataOrder && <OrderTable orders={dataOrder} updateStatus={updateStatus}/>}
+    <FullOrder updateStatus={updateStatus}/>
+    </div>
   )
 }
 

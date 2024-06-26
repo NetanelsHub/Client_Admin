@@ -11,14 +11,14 @@ export default function Model({close_function,children}) {
     <div className="overflow-x-auto">
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="absolute inset-0 bg-black opacity-50" onClick={close_function}></div>
           <div className="relative bg-white p-6 rounded-lg">
-            <button
-             onClick={close_function}
-              className="absolute top-0 right-0 m-2 p-2 text-gray-500 hover:text-gray-800"
-            >
-              Close
-            </button>
+
+            <div className="flex justify-end p-2">
+          <button onClick={close_function} className="text-black text-2xl hover:text-red-500">
+            &times;
+          </button>
+        </div>
             {/* Modal content goes here */}
             {children}
           </div>
