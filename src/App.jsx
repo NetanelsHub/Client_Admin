@@ -1,4 +1,5 @@
 import { lazy, Suspense, useContext } from "react";
+import { FaSpinner } from "react-icons/fa";
 import Nav from "./component/static/Nav";
 import ForgotPassword from "./component/outlet/pages/ForgotPassword";
 import ResetPassword from "./component/outlet/pages/ResetPassword";
@@ -28,7 +29,8 @@ function Root() {
   return (
     <>
       {show && <Nav />}
-      <Suspense fallback={<div>loading ...</div>}>
+      <Suspense fallback={<FaSpinner className="w-8 h-8 text-blue-500 animate-spin" />
+}>
         <Outlet />
       </Suspense>
       {/* <ChatBot /> */}

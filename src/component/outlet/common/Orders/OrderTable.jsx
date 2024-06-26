@@ -7,6 +7,7 @@ import { productContext } from "../../../../helper/ProductContext"
 import Model from '../element/Model';
 import Form from '../element/Form';
 import FullOrder from './FullOrder';
+import PaginationClient from '../../pages/PaginationClient';
 
 function OrderTable({orders, updateStatus}) {
 
@@ -14,6 +15,16 @@ function OrderTable({orders, updateStatus}) {
   const [filterStatus, setFilterStatus] = useState(null);
   const [dataOrders, setDataOrders] = useState([...orders]);
   const [searchOrder, setSearchOrder] = useState("");
+
+
+  const [currentPage,setCurrentPage] = useState(1);
+  // limit
+  const [productPerPage] = useState(7);
+
+   const indexOfLastProduct = currentPage * productPerPage; // 3
+   const indexOfFirstProduct = indexOfLastProduct - productPerPage; // 0
+   const currentProducts = dataOrders.slice(indexOfFirstProduct,indexOfLastProduct);
+
 
 
 const [sortIndex,setSortIndex] = useState(null);
@@ -54,6 +65,8 @@ function handleSort(col,nestedCol){
 
   function showFullOrder(order){
     setOrder(order) 
+    localStorage.setItem('order', JSON.stringify(order));
+
     console.log(order)
     setShowModal(true)
     
@@ -69,7 +82,7 @@ function handleSort(col,nestedCol){
     
     <div>
     <Model close_function={handleCloseModal}> 
-    <FullOrder/>             
+    <FullOrder />             
      </Model>   
 
     <ButtonsFilter
@@ -125,7 +138,7 @@ function handleSort(col,nestedCol){
           </tr>
         </thead>
                    <tbody>
-            {dataOrders
+            {currentProducts
               .filter((order) =>
                 !filterStatus ? order : order.status === filterStatus
               )
@@ -192,7 +205,12 @@ function handleSort(col,nestedCol){
           </tbody>
       </table>
     </div>
-  
+    <PaginationClient
+    productPerPage={productPerPage}
+    currentPage={currentPage}
+    setCurrentPage={setCurrentPage}
+    totalProduct={dataOrders.length}
+    />
   </div>
   )
 }
